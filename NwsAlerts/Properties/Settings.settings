@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NwsAlerts.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MessageTypes" Type="NwsAlertApi.MessageTypes" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="EventList" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Severe Thunderstorm Watch
+Tornado Watch
+Tornado Warning
+Flood Advisory
+Flood Watch
+Flood Warning
+Flash Flood Watch
+Flash Flood Warning
+Small Stream Flood Advisory
+Urban And Small Stream Flood Advisory</Value>
+    </Setting>
+    <Setting Name="Severity" Type="NwsAlertApi.Severities" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="OutputFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
