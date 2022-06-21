@@ -30,18 +30,28 @@ namespace NwsAlerts
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.statusLabelUpdate = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelAvailable = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelActive = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelAlerts = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelRetrieve = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelError = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxState = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonConnect = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonCrawl = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBoxCrawl = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.checkedListBoxMessageType = new System.Windows.Forms.CheckedListBox();
             this.checkedListBoxEvent = new System.Windows.Forms.CheckedListBox();
@@ -65,12 +75,11 @@ namespace NwsAlerts
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusLabelUpdate = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusLabelRetrieve = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusLabelError = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButtonConnect = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSendCrawl = new System.Windows.Forms.ToolStripSplitButton();
+            this.sendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAndSendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).BeginInit();
@@ -87,33 +96,58 @@ namespace NwsAlerts
             this.statusLabelAlerts,
             this.statusLabelRetrieve,
             this.statusLabelError});
-            this.statusStrip.Location = new System.Drawing.Point(0, 777);
+            this.statusStrip.Location = new System.Drawing.Point(0, 778);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1038, 25);
+            this.statusStrip.Size = new System.Drawing.Size(1038, 24);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 8;
             this.statusStrip.Text = "statusStrip1";
+            // 
+            // statusLabelUpdate
+            // 
+            this.statusLabelUpdate.Image = global::NwsAlerts.Properties.Resources.Disconnect_16x;
+            this.statusLabelUpdate.Name = "statusLabelUpdate";
+            this.statusLabelUpdate.Size = new System.Drawing.Size(169, 19);
+            this.statusLabelUpdate.Text = "Last update: Not connected";
             // 
             // statusLabelAvailable
             // 
             this.statusLabelAvailable.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusLabelAvailable.Name = "statusLabelAvailable";
-            this.statusLabelAvailable.Size = new System.Drawing.Size(108, 20);
+            this.statusLabelAvailable.Size = new System.Drawing.Size(108, 19);
             this.statusLabelAvailable.Text = "Available events: 0";
             // 
             // statusLabelActive
             // 
             this.statusLabelActive.Name = "statusLabelActive";
-            this.statusLabelActive.Size = new System.Drawing.Size(52, 20);
+            this.statusLabelActive.Size = new System.Drawing.Size(52, 19);
             this.statusLabelActive.Text = "Active: 0";
             // 
             // statusLabelAlerts
             // 
             this.statusLabelAlerts.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusLabelAlerts.Name = "statusLabelAlerts";
-            this.statusLabelAlerts.Size = new System.Drawing.Size(89, 20);
+            this.statusLabelAlerts.Size = new System.Drawing.Size(89, 19);
             this.statusLabelAlerts.Text = "Active Alerts: 0";
+            // 
+            // statusLabelRetrieve
+            // 
+            this.statusLabelRetrieve.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.statusLabelRetrieve.Image = ((System.Drawing.Image)(resources.GetObject("statusLabelRetrieve.Image")));
+            this.statusLabelRetrieve.Name = "statusLabelRetrieve";
+            this.statusLabelRetrieve.Size = new System.Drawing.Size(115, 20);
+            this.statusLabelRetrieve.Text = "Retrieving data...";
+            this.statusLabelRetrieve.Visible = false;
+            // 
+            // statusLabelError
+            // 
+            this.statusLabelError.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.statusLabelError.Image = ((System.Drawing.Image)(resources.GetObject("statusLabelError.Image")));
+            this.statusLabelError.Name = "statusLabelError";
+            this.statusLabelError.Size = new System.Drawing.Size(149, 20);
+            this.statusLabelError.Text = "Unable to retrieve data.";
+            this.statusLabelError.Visible = false;
             // 
             // toolStrip
             // 
@@ -125,6 +159,11 @@ namespace NwsAlerts
             this.toolStripSeparator2,
             this.toolStripButtonConnect,
             this.toolStripButtonRefresh,
+            this.toolStripSeparator1,
+            this.toolStripButtonCrawl,
+            this.toolStripLabel2,
+            this.toolStripTextBoxCrawl,
+            this.toolStripButtonSendCrawl,
             this.toolStripSeparator3,
             this.toolStripButtonSettings});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -152,10 +191,69 @@ namespace NwsAlerts
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // toolStripButtonConnect
+            // 
+            this.toolStripButtonConnect.CheckOnClick = true;
+            this.toolStripButtonConnect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonConnect.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonConnect.Image")));
+            this.toolStripButtonConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonConnect.Name = "toolStripButtonConnect";
+            this.toolStripButtonConnect.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonConnect.Text = "Connect";
+            this.toolStripButtonConnect.CheckedChanged += new System.EventHandler(this.toolStripButtonConnect_CheckedChanged);
+            // 
+            // toolStripButtonRefresh
+            // 
+            this.toolStripButtonRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRefresh.Image")));
+            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
+            this.toolStripButtonRefresh.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonRefresh.Text = "Get data";
+            this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButtonCrawl
+            // 
+            this.toolStripButtonCrawl.CheckOnClick = true;
+            this.toolStripButtonCrawl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonCrawl.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCrawl.Image")));
+            this.toolStripButtonCrawl.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCrawl.Name = "toolStripButtonCrawl";
+            this.toolStripButtonCrawl.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonCrawl.Text = "Connect to crawl";
+            this.toolStripButtonCrawl.Click += new System.EventHandler(this.toolStripButtonCrawl_Click);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(63, 22);
+            this.toolStripLabel2.Text = "Crawl text:";
+            // 
+            // toolStripTextBoxCrawl
+            // 
+            this.toolStripTextBoxCrawl.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBoxCrawl.Name = "toolStripTextBoxCrawl";
+            this.toolStripTextBoxCrawl.Size = new System.Drawing.Size(600, 25);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButtonSettings
+            // 
+            this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
+            this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSettings.Name = "toolStripButtonSettings";
+            this.toolStripButtonSettings.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSettings.Text = "Settings";
+            this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
             // 
             // label1
             // 
@@ -288,6 +386,7 @@ namespace NwsAlerts
             this.ExpireDate,
             this.Area});
             this.dataGridViewAlerts.Location = new System.Drawing.Point(12, 581);
+            this.dataGridViewAlerts.MultiSelect = false;
             this.dataGridViewAlerts.Name = "dataGridViewAlerts";
             this.dataGridViewAlerts.ReadOnly = true;
             this.dataGridViewAlerts.RowHeadersVisible = false;
@@ -308,9 +407,9 @@ namespace NwsAlerts
             // EffectiveDate
             // 
             this.EffectiveDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle1.Format = "MM/dd/yy hh:mm tt";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Format = "MM/dd/yy hh:mm tt";
+            dataGridViewCellStyle5.NullValue = null;
+            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle5;
             this.EffectiveDate.HeaderText = "Effective";
             this.EffectiveDate.MinimumWidth = 100;
             this.EffectiveDate.Name = "EffectiveDate";
@@ -320,8 +419,8 @@ namespace NwsAlerts
             // ExpireDate
             // 
             this.ExpireDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Format = "MM/dd/yy hh:mm tt";
-            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Format = "MM/dd/yy hh:mm tt";
+            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle6;
             this.ExpireDate.HeaderText = "Expires";
             this.ExpireDate.MinimumWidth = 100;
             this.ExpireDate.Name = "ExpireDate";
@@ -385,61 +484,47 @@ namespace NwsAlerts
             this.columnHeader3.Text = "State";
             this.columnHeader3.Width = 57;
             // 
-            // statusLabelUpdate
+            // toolStripButtonSendCrawl
             // 
-            this.statusLabelUpdate.Image = global::NwsAlerts.Properties.Resources.Disconnect_16x;
-            this.statusLabelUpdate.Name = "statusLabelUpdate";
-            this.statusLabelUpdate.Size = new System.Drawing.Size(169, 20);
-            this.statusLabelUpdate.Text = "Last update: Not connected";
+            this.toolStripButtonSendCrawl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSendCrawl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sendToCrawlToolStripMenuItem,
+            this.resetAndSendToCrawlToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.resetToDefaultToolStripMenuItem});
+            this.toolStripButtonSendCrawl.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSendCrawl.Image")));
+            this.toolStripButtonSendCrawl.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSendCrawl.Name = "toolStripButtonSendCrawl";
+            this.toolStripButtonSendCrawl.Size = new System.Drawing.Size(32, 22);
+            this.toolStripButtonSendCrawl.Text = "Send text to crawl";
+            this.toolStripButtonSendCrawl.Click += new System.EventHandler(this.toolStripButtonSendCrawl_Click);
             // 
-            // statusLabelRetrieve
+            // sendToCrawlToolStripMenuItem
             // 
-            this.statusLabelRetrieve.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.statusLabelRetrieve.Image = ((System.Drawing.Image)(resources.GetObject("statusLabelRetrieve.Image")));
-            this.statusLabelRetrieve.Name = "statusLabelRetrieve";
-            this.statusLabelRetrieve.Size = new System.Drawing.Size(115, 20);
-            this.statusLabelRetrieve.Text = "Retrieving data...";
-            this.statusLabelRetrieve.Visible = false;
+            this.sendToCrawlToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.sendToCrawlToolStripMenuItem.Name = "sendToCrawlToolStripMenuItem";
+            this.sendToCrawlToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.sendToCrawlToolStripMenuItem.Text = "Send to crawl";
+            this.sendToCrawlToolStripMenuItem.Click += new System.EventHandler(this.sendToCrawlToolStripMenuItem_Click);
             // 
-            // statusLabelError
+            // resetAndSendToCrawlToolStripMenuItem
             // 
-            this.statusLabelError.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.statusLabelError.Image = ((System.Drawing.Image)(resources.GetObject("statusLabelError.Image")));
-            this.statusLabelError.Name = "statusLabelError";
-            this.statusLabelError.Size = new System.Drawing.Size(149, 20);
-            this.statusLabelError.Text = "Unable to retrieve data.";
-            this.statusLabelError.Visible = false;
+            this.resetAndSendToCrawlToolStripMenuItem.Name = "resetAndSendToCrawlToolStripMenuItem";
+            this.resetAndSendToCrawlToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.resetAndSendToCrawlToolStripMenuItem.Text = "Reset and send to crawl";
+            this.resetAndSendToCrawlToolStripMenuItem.Click += new System.EventHandler(this.resetAndSendToCrawlToolStripMenuItem_Click);
             // 
-            // toolStripButtonConnect
+            // toolStripSeparator4
             // 
-            this.toolStripButtonConnect.CheckOnClick = true;
-            this.toolStripButtonConnect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonConnect.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonConnect.Image")));
-            this.toolStripButtonConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonConnect.Name = "toolStripButtonConnect";
-            this.toolStripButtonConnect.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonConnect.Text = "Connect";
-            this.toolStripButtonConnect.CheckedChanged += new System.EventHandler(this.toolStripButtonConnect_CheckedChanged);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(195, 6);
             // 
-            // toolStripButtonRefresh
+            // resetToDefaultToolStripMenuItem
             // 
-            this.toolStripButtonRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRefresh.Image")));
-            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonRefresh.Text = "Get data";
-            this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
-            // 
-            // toolStripButtonSettings
-            // 
-            this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
-            this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSettings.Name = "toolStripButtonSettings";
-            this.toolStripButtonSettings.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSettings.Text = "Settings";
-            this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
+            this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
+            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.resetToDefaultToolStripMenuItem.Text = "Reset to default";
+            this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.resetToDefaultToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -520,6 +605,15 @@ namespace NwsAlerts
         private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
         private System.Windows.Forms.DataGridViewComboBoxColumn Group;
         private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
+        private System.Windows.Forms.ToolStripButton toolStripButtonCrawl;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxCrawl;
+        private System.Windows.Forms.ToolStripSplitButton toolStripButtonSendCrawl;
+        private System.Windows.Forms.ToolStripMenuItem sendToCrawlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetAndSendToCrawlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem resetToDefaultToolStripMenuItem;
     }
 }
 

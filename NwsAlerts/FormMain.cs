@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -27,10 +28,10 @@ namespace NwsAlerts
         private string email;
         private string outputPath;
         private List<Alert> activeAlerts;
-        private CrawlWindow crawlWin;
         private PropertyForm propertyWindow;
+        private bool resetCrawl;
+        private NamedPipeClientStream crawlPipe;
 
-        private readonly string defaultCrawl = "●  SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.";
         public FormMain()
         {
             InitializeComponent();
@@ -224,16 +225,40 @@ namespace NwsAlerts
 
         private void PopulateAlertList()
         {
+            string selectedAlertId;
+
+            if(dataGridViewAlerts.SelectedRows.Count != 0)
+            {
+                selectedAlertId = dataGridViewAlerts.SelectedRows[0].Tag.ToString();
+            }
+            else
+            {
+                selectedAlertId = "";
+            }
+
             dataGridViewAlerts.Rows.Clear();
 
-            foreach(Alert alert in activeAlerts)
+            foreach (Alert alert in activeAlerts)
             {
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dataGridViewAlerts, alert.Event, alert.Effective, alert.Expires, alert.AreaDesc);
+                row.Tag = alert.ID;
+
                 dataGridViewAlerts.Rows.Add(row);
             }
 
             dataGridViewAlerts.AutoResizeRows();
+
+            if (selectedAlertId != "")
+            {
+                for (int i = 0; i < dataGridViewAlerts.Rows.Count; i++)
+                {
+                    if (dataGridViewAlerts.Rows[i].Tag.ToString() == selectedAlertId)
+                    {
+                        dataGridViewAlerts.Rows[i].Selected = true;
+                    }
+                }
+            }
         }
 
         private ListViewGroup GetZoneGroup(string wfo)
@@ -263,7 +288,7 @@ namespace NwsAlerts
             {
                 AlertEvent ae = selectedEvents.Where(evt => evt.Name == alert.Event).FirstOrDefault();
                 
-                if(ae != null && ae.DisplayLocation == DisplayLocation.Main)
+                if(ae != null)
                     alerts[ae.GroupID].Add(new Tuple<Alert, AlertEvent>(alert, ae));
             }
 
@@ -290,6 +315,9 @@ namespace NwsAlerts
                 body.AppendLine("<p>&nbsp;</p>");
             }
 
+            if (resetCrawl)
+                crawl.Append("!RESET!");
+
             foreach (var items in alerts)
             {
                 foreach (var alert in items.Value)
@@ -298,7 +326,10 @@ namespace NwsAlerts
                     {
                         crawl.Append("●   ");
                         crawl.Append(alert.Item1.Headline.ToUpper());
-                        crawl.Append(alert.Item1.Description.Replace("\r", "").Replace("\n", " ").ToUpper());
+                        crawl.Append(" FOR ");
+                        crawl.Append(alert.Item1.AreaDesc.ToUpper());
+                        crawl.Append("...  ");
+                        crawl.Append(alert.Item1.Description.Replace("\r", "").Replace("\n", "  ").ToUpper());
                         crawl.Append("   ");
                     }
                 }
@@ -310,23 +341,57 @@ namespace NwsAlerts
             }
             string output = doc.Replace("{alerts}", body.ToString());
 
-            File.WriteAllText($"{outputPath}\\Warnings.html", output);
-            File.WriteAllText($"{outputPath}\\crawl.txt", crawl.ToString());
+            if (crawl.Length == 0)
+                crawl.Append("SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.");
 
-            if (crawl.Length > 0)
+            try
             {
-                if (InvokeRequired)
-                    Invoke((MethodInvoker)delegate () { crawlWin.CrawlText = crawl.ToString(); });
-                else
-                    crawlWin.CrawlText = crawl.ToString();
+                File.WriteAllText($"{outputPath}\\Warnings.html", output);
+                //File.WriteAllText($"{outputPath}\\crawl.txt", crawl.ToString());
+
+                SendCrawl(crawl.ToString());
+            }
+            catch (IOException)
+            {
+                // do nothing
+            }
+
+            resetCrawl = false;
+        }
+
+        /// <summary>
+        /// Sends the specifed text to the crawl without forcing a refresh.
+        /// </summary>
+        /// <param name="text">The text to send.</param>
+        void SendCrawl(string text)
+        {
+            SendCrawl(text, false);
+        }
+
+        /// <summary>
+        /// Sends the specified the the crawl, and optionally forces a refresh of the crawl.
+        /// </summary>
+        /// <param name="text">The text to send.</param>
+        /// <param name="reset">Specifies whether the crawl is reset or not.</param>
+        void SendCrawl(string text, bool reset)
+        {
+            if(reset)
+            {
+                text = "!RESET!" + text.ToUpper();
             }
             else
             {
-                if (InvokeRequired)
-                    Invoke(new MethodInvoker(delegate () { crawlWin.CrawlText = defaultCrawl; }));
-                else
-                    crawlWin.CrawlText = defaultCrawl;
+                text = text.ToUpper();
             }
+
+            if (crawlPipe != null && crawlPipe.IsConnected)
+            {
+                byte[] message = Encoding.UTF8.GetBytes(text);
+                crawlPipe.Write(message, 0, message.Length);
+            }
+
+            if (crawlPipe != null && !crawlPipe.IsConnected)
+                toolStripButtonCrawl.Checked = false;
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -350,6 +415,9 @@ namespace NwsAlerts
 
             Properties.Settings.Default.Save();
             SaveConfiguration();
+
+            if(crawlPipe != null)
+                crawlPipe.Dispose();
         }
 
         private void checkedListBoxEvent_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -396,6 +464,7 @@ namespace NwsAlerts
             List<String> events = api.GetEventTypes();
             int selectedMessages = (int)Properties.Settings.Default.MessageTypes;
             int selectedSeverity = (int)Properties.Settings.Default.Severity;
+            resetCrawl = false;
 
             loading = true;
             statusLabelAvailable.Text = $"Available events: {events.Count}";
@@ -435,10 +504,6 @@ namespace NwsAlerts
 
             loading = false;
 
-            crawlWin = new CrawlWindow();
-            crawlWin.CrawlText = defaultCrawl;
-            crawlWin.Show(this);
-
             propertyWindow = new PropertyForm();
         }
 
@@ -477,7 +542,6 @@ namespace NwsAlerts
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
             RefreshAlerts();
-            crawlWin.ResetCrawl();
         }
 
         private void dataGridViewAlerts_SelectionChanged(object sender, EventArgs e)
@@ -526,6 +590,8 @@ namespace NwsAlerts
                     listViewZones.Items.Add(lvi);
                 }
             }
+
+            resetCrawl = true;
         }
 
         private void toolStripButtonConnect_CheckedChanged(object sender, EventArgs e)
@@ -573,6 +639,63 @@ namespace NwsAlerts
 
             propertyWindow.BrowseAlert(alert);
             propertyWindow.Show();
+        }
+
+        private void toolStripButtonCrawl_Click(object sender, EventArgs e)
+        {
+            if(toolStripButtonCrawl.Checked)
+            {
+                try
+                {
+                    crawlPipe = new NamedPipeClientStream(".", "AlertCrawl", PipeDirection.InOut);
+                    crawlPipe.Connect(1000);
+                    crawlPipe.ReadMode = PipeTransmissionMode.Message;
+                }
+                catch(IOException ex)
+                {
+                    MessageBox.Show($"Unable to connect to alert crawl due to a problem: {ex.Message}", "Connect to crawl");
+                    crawlPipe.Dispose();
+                    crawlPipe = null;
+
+                    toolStripButtonCrawl.Checked = false;
+                }
+                catch(TimeoutException)
+                {
+                    MessageBox.Show($"Unable to connect to alert crawl. Connection timed out.", "Connect to Crawl");
+                    crawlPipe.Dispose();
+                    crawlPipe = null;
+
+                    toolStripButtonCrawl.Checked = false;
+                }
+            }
+            else
+            {
+                if(crawlPipe != null)
+                {
+                    crawlPipe.Dispose();
+                    crawlPipe = null;
+                }    
+            }
+        }
+
+        private void toolStripButtonSendCrawl_Click(object sender, EventArgs e)
+        {
+            SendCrawl(toolStripTextBoxCrawl.Text);
+        }
+
+        private void sendToCrawlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendCrawl(toolStripTextBoxCrawl.Text);
+        }
+
+        private void resetAndSendToCrawlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendCrawl(toolStripTextBoxCrawl.Text, true);
+        }
+
+        private void resetToDefaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendCrawl("SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.", true);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace NwsAlerts
+﻿namespace AlertCrawl
 {
     partial class CrawlWindow
     {
@@ -29,26 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.labelCrawlText = new System.Windows.Forms.Label();
-            this.timerMarquee = new System.Windows.Forms.Timer(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CrawlWindow));
+            this.timerCrawl = new System.Windows.Forms.Timer(this.components);
+            this.fileSystemWatcher = new System.IO.FileSystemWatcher();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
             this.SuspendLayout();
             // 
-            // labelCrawlText
+            // timerCrawl
             // 
-            this.labelCrawlText.AutoSize = true;
-            this.labelCrawlText.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCrawlText.ForeColor = System.Drawing.Color.White;
-            this.labelCrawlText.Location = new System.Drawing.Point(12, 17);
-            this.labelCrawlText.Name = "labelCrawlText";
-            this.labelCrawlText.Size = new System.Drawing.Size(48, 19);
-            this.labelCrawlText.TabIndex = 0;
-            this.labelCrawlText.Text = "Alert!";
+            this.timerCrawl.Enabled = true;
+            this.timerCrawl.Interval = 50;
+            this.timerCrawl.Tick += new System.EventHandler(this.timerCrawl_Tick);
             // 
-            // timerMarquee
+            // fileSystemWatcher
             // 
-            this.timerMarquee.Enabled = true;
-            this.timerMarquee.Interval = 20;
-            this.timerMarquee.Tick += new System.EventHandler(this.timerMarquee_Tick);
+            this.fileSystemWatcher.EnableRaisingEvents = true;
+            this.fileSystemWatcher.Filter = "crawl.txt";
+            this.fileSystemWatcher.SynchronizingObject = this;
+            this.fileSystemWatcher.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher_Changed);
             // 
             // CrawlWindow
             // 
@@ -56,22 +54,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1083, 60);
-            this.ControlBox = false;
-            this.Controls.Add(this.labelCrawlText);
-            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "CrawlWindow";
-            this.ShowInTaskbar = false;
             this.Text = "Alert Crawl";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CrawlWindow_FormClosed);
             this.Load += new System.EventHandler(this.CrawlWindow_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.CrawlWindow_Paint);
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label labelCrawlText;
-        private System.Windows.Forms.Timer timerMarquee;
+        private System.Windows.Forms.Timer timerCrawl;
+        private System.IO.FileSystemWatcher fileSystemWatcher;
     }
 }
