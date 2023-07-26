@@ -34,5 +34,29 @@ namespace NwsAlerts
         {
             return Name;
         }
+
+        /// <summary>
+        /// Calculates the hash code for this instance.
+        /// </summary>
+        /// <returns>This returns the value of the <see cref="GroupID"/> property.</returns>
+        public override int GetHashCode()
+        {
+            return GroupID;
+        }
+
+        /// <summary>
+        /// Determines if another object is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare.</param>
+        /// <returns>True if the object is equal, false if not.</returns>
+        public override bool Equals(object obj)
+        {
+            AlertEvent other = obj as AlertEvent;
+
+            if (other == null)
+                return false;
+
+            return other == this || (other.Name == this.Name && other.GroupID == this.GroupID && other.DisplayLocation == this.DisplayLocation);
+        }
     }
 }

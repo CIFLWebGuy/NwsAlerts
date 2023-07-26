@@ -31,33 +31,27 @@ namespace NwsAlerts
         private PropertyForm propertyWindow;
         private bool resetCrawl;
         private NamedPipeClientStream crawlPipe;
+        private SplashForm splashDlog;
+        private string crawlMessage;
 
         public FormMain()
         {
             InitializeComponent();
 
+            splashDlog = new SplashForm();
+            splashDlog.Show();
+            Application.DoEvents();
+
             selectedEvents = new List<AlertEvent>();
             groupList = new List<AlertGroup>();
 
+            splashDlog.StatusText = "Loading configuration...";
             LoadConfiguration();
 
             api = new ApiClient(apiEndpoint, userAgent);
-
-            DataGridViewComboBoxColumn col = dataGridViewEvents.Columns["Group"] as DataGridViewComboBoxColumn;
-            col.Items.Add("(none)");
-            
-            foreach(AlertGroup item in groupList)
-            {
-                col.Items.Add(item.Name);
-            }
-
-            col = dataGridViewEvents.Columns["LocationName"] as DataGridViewComboBoxColumn;
-            col.Items.Add("Main");
-            col.Items.Add("Crawl");
-
-            timerRefresh.Interval = 60000 * refreshInterval;
+            crawlMessage = "";
         }
-        
+
         private void LoadConfiguration()
         {
             XDocument doc = XDocument.Load("Alerts.xml");
@@ -73,7 +67,7 @@ namespace NwsAlerts
             refreshInterval = int.Parse(api.Attribute("refresh").Value);
             outputPath = http.Attribute("output").Value;
 
-            foreach(XElement group in groups.Elements())
+            foreach (XElement group in groups.Elements())
             {
                 AlertGroup item = new AlertGroup();
                 item.Name = group.Attribute("name").Value;
@@ -277,59 +271,60 @@ namespace NwsAlerts
             string doc = File.ReadAllText("Warnings.html");
             StringBuilder body = new StringBuilder();
             StringBuilder crawl = new StringBuilder();
-            Dictionary<int, List<Tuple<Alert, AlertEvent>>> alerts = new Dictionary<int, List<Tuple<Alert, AlertEvent>>>();
+            Dictionary<AlertGroup, List<Alert>> alerts = new Dictionary<AlertGroup, List<Alert>>();
 
-            foreach(AlertGroup group in groupList)
+            crawl.Append(crawlMessage);
+
+            foreach (Alert alert in activeAlerts)
             {
-                alerts.Add(group.ID, new List<Tuple<Alert, AlertEvent>>());
-            }
+                AlertEvent alertEvent = selectedEvents.Where(evt => evt.Name == alert.Event).FirstOrDefault();
+                AlertGroup group = groupList.Where(g => g.ID == alertEvent.GroupID).FirstOrDefault();
 
-            foreach(Alert alert in activeAlerts)
-            {
-                AlertEvent ae = selectedEvents.Where(evt => evt.Name == alert.Event).FirstOrDefault();
-                
-                if(ae != null)
-                    alerts[ae.GroupID].Add(new Tuple<Alert, AlertEvent>(alert, ae));
-            }
-
-            foreach (var item in alerts.Where(a => a.Value.Count > 0))
-            {
-                AlertGroup group = groupList.Where(g => g.ID == item.Key).Single();
-
-                body.AppendLine($"<h2 class=\"{group.CssClass}\">{group.Name}</h2>");
-
-                foreach(Tuple<Alert, AlertEvent> alert in item.Value)
+                if (group != null)
                 {
-                    if (alert.Item2.DisplayLocation == DisplayLocation.Main)
+                    if (!alerts.ContainsKey(group))
                     {
-                        if (group.ShowEvent)
+                        alerts.Add(group, new List<Alert>());
+                    }
+
+                    alerts[group].Add(alert);
+                }
+            }
+
+            foreach (KeyValuePair<AlertGroup, List<Alert>> alert in alerts)
+            {
+                AlertEvent alertEvent = selectedEvents.Where(evt => evt.GroupID == alert.Key.ID).FirstOrDefault();
+
+                if (alertEvent.DisplayLocation == DisplayLocation.Main)
+                {
+                    AlertGroup group = groupList.Where(g => g.ID == alertEvent.GroupID).FirstOrDefault();
+
+                    if (group != null)
+                    {
+                        body.AppendLine($"<h2 class=\"{group.CssClass}\">{group.Name}</h2>");
+
+                        foreach (Alert alertItem in alert.Value)
                         {
-                            body.AppendLine($"<p><h3>{alert.Item1.Event}</h3>{alert.Item1.AreaDesc}<br />until {alert.Item1.Expires:g}</p>");
+                            if (group.ShowEvent)
+                            {
+                                body.AppendLine($"<p><h3>{alertItem.Event}</h3>{alertItem.AreaDesc}<br />until {alertItem.Expires:g}</p>");
+                            }
+                            else
+                            {
+                                body.AppendLine($"<p>{alertItem.AreaDesc} until {alertItem.Expires:g}</p>");
+                            }
                         }
-                        else
-                        {
-                            body.AppendLine($"{alert.Item1.AreaDesc} until {alert.Item1.Expires:g}</p>");
-                        }
+
+                        body.AppendLine("<p>&nbsp;</p>");
                     }
                 }
-                body.AppendLine("<p>&nbsp;</p>");
-            }
-
-            if (resetCrawl)
-                crawl.Append("!RESET!");
-
-            foreach (var items in alerts)
-            {
-                foreach (var alert in items.Value)
+                else if (alertEvent.DisplayLocation == DisplayLocation.Crawl)
                 {
-                    if (alert.Item2.DisplayLocation == DisplayLocation.Crawl)
+                    foreach (Alert alertItem in alert.Value)
                     {
                         crawl.Append("●   ");
-                        crawl.Append(alert.Item1.Headline.ToUpper());
-                        crawl.Append(" FOR ");
-                        crawl.Append(alert.Item1.AreaDesc.ToUpper());
-                        crawl.Append("...  ");
-                        crawl.Append(alert.Item1.Description.Replace("\r", "").Replace("\n", "  ").ToUpper());
+                        crawl.Append(alertItem.Headline.ToUpper());
+                        crawl.Append(alertItem.Description.Replace("\r", "").Replace("\n", " ").ToUpper());
                         crawl.Append("   ");
                     }
                 }
@@ -392,6 +387,72 @@ namespace NwsAlerts
 
             if (crawlPipe != null && !crawlPipe.IsConnected)
                 toolStripButtonCrawl.Checked = false;
+        }
+
+        private void InitalizeApplication(SplashForm dlog)
+        {
+            dlog.StatusText = "Retrieving event types...";
+            List<String> events = api.GetEventTypes();
+
+            int selectedMessages = (int)Properties.Settings.Default.MessageTypes;
+            int selectedSeverity = (int)Properties.Settings.Default.Severity;
+
+            dlog.StatusText = "Initializing event grid...";
+            DataGridViewComboBoxColumn col = dataGridViewEvents.Columns["Group"] as DataGridViewComboBoxColumn;
+            col.Items.Add("(none)");
+
+            foreach (AlertGroup item in groupList)
+            {
+                col.Items.Add(item.Name);
+            }
+
+            col = dataGridViewEvents.Columns["LocationName"] as DataGridViewComboBoxColumn;
+            col.Items.Add("Main");
+            col.Items.Add("Crawl");
+
+            timerRefresh.Interval = 60000 * refreshInterval;
+            statusLabelAvailable.Text = $"Available events: {events.Count}";
+            
+            dlog.StatusText = "Populating alert events...";
+
+            foreach (string item in events)
+            {
+                if (IsActiveEvent(item))
+                {
+                    checkedListBoxEvent.Items.Add(item, true);
+                    AddGridRow(selectedEvents.Where(x => x.Name == item).Single());
+                }
+                else
+                {
+                    checkedListBoxEvent.Items.Add(item, false);
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                if ((selectedMessages & (int)Math.Pow(0x2, i)) > 0)
+                    checkedListBoxMessageType.SetItemChecked(i, true);
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                if ((selectedSeverity & (int)Math.Pow(0x2, i)) > 0)
+                    checkedListBoxSeverity.SetItemChecked(i, true);
+            }
+
+            dlog.StatusText = "Retrieving state list...";
+
+            foreach (string item in api.GetStates())
+            {
+                toolStripComboBoxState.Items.Add(item);
+            }
+
+            if (toolStripComboBoxState.Items.Count > 0)
+                toolStripComboBoxState.SelectedIndex = 0;
+
+            loading = false;
+
+            propertyWindow = new PropertyForm();
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -461,50 +522,12 @@ namespace NwsAlerts
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            List<String> events = api.GetEventTypes();
-            int selectedMessages = (int)Properties.Settings.Default.MessageTypes;
-            int selectedSeverity = (int)Properties.Settings.Default.Severity;
-            resetCrawl = false;
+                resetCrawl = false;
+                loading = true;
+                
+                InitalizeApplication(splashDlog);
 
-            loading = true;
-            statusLabelAvailable.Text = $"Available events: {events.Count}";
-
-            foreach (string item in events)
-            {
-                if (IsActiveEvent(item))
-                {
-                    checkedListBoxEvent.Items.Add(item, true);
-                    AddGridRow(selectedEvents.Where(x => x.Name == item).Single());
-                }
-                else
-                {
-                    checkedListBoxEvent.Items.Add(item, false);
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                if ((selectedMessages & (int)Math.Pow(0x2, i)) > 0)
-                    checkedListBoxMessageType.SetItemChecked(i, true);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                if ((selectedSeverity & (int)Math.Pow(0x2, i)) > 0)
-                    checkedListBoxSeverity.SetItemChecked(i, true);
-            }
-
-            foreach (string item in api.GetStates())
-            {
-                toolStripComboBoxState.Items.Add(item);
-            }
-
-            if (toolStripComboBoxState.Items.Count > 0)
-                toolStripComboBoxState.SelectedIndex = 0;
-
-            loading = false;
-
-            propertyWindow = new PropertyForm();
+                splashDlog.Close();
         }
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
@@ -528,6 +551,8 @@ namespace NwsAlerts
 
                     if(group != null)
                         alertEvent.GroupID = group.ID;
+                    else
+                        alertEvent.GroupID = 0;
                     break;
 
                 case 2:
@@ -696,6 +721,25 @@ namespace NwsAlerts
         private void resetToDefaultToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SendCrawl("SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.", true);
+        }
+
+        private void linkLabelExportWarning_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (richTextBoxAlert.Text == "")
+                return;
+
+            Alert alert = activeAlerts[dataGridViewAlerts.SelectedRows[0].Index];
+
+            try
+            {
+                File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Warning.txt"), richTextBoxAlert.Text);
+                File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "AlertTitle.txt"), alert.Event);
+
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(this, $"A problem was encounterd while exporting the warning text. {ex.Message}", "Export Warning Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

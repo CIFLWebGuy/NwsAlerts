@@ -23,5 +23,8 @@ Urban And Small Stream Flood Advisory</Value>
     <Setting Name="OutputFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="WarningOutputPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\OneDrive\Documents\Streaming\Weather\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

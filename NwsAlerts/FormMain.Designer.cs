@@ -31,8 +31,8 @@ namespace NwsAlerts
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabelUpdate = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelAvailable = new System.Windows.Forms.ToolStripStatusLabel();
@@ -50,6 +50,11 @@ namespace NwsAlerts
             this.toolStripButtonCrawl = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxCrawl = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripButtonSendCrawl = new System.Windows.Forms.ToolStripSplitButton();
+            this.sendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAndSendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -75,11 +80,7 @@ namespace NwsAlerts
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.toolStripButtonSendCrawl = new System.Windows.Forms.ToolStripSplitButton();
-            this.sendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetAndSendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkLabelExportWarning = new System.Windows.Forms.LinkLabel();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).BeginInit();
@@ -239,6 +240,48 @@ namespace NwsAlerts
             this.toolStripTextBoxCrawl.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxCrawl.Name = "toolStripTextBoxCrawl";
             this.toolStripTextBoxCrawl.Size = new System.Drawing.Size(600, 25);
+            // 
+            // toolStripButtonSendCrawl
+            // 
+            this.toolStripButtonSendCrawl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSendCrawl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sendToCrawlToolStripMenuItem,
+            this.resetAndSendToCrawlToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.resetToDefaultToolStripMenuItem});
+            this.toolStripButtonSendCrawl.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSendCrawl.Image")));
+            this.toolStripButtonSendCrawl.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSendCrawl.Name = "toolStripButtonSendCrawl";
+            this.toolStripButtonSendCrawl.Size = new System.Drawing.Size(32, 22);
+            this.toolStripButtonSendCrawl.Text = "Send text to crawl";
+            this.toolStripButtonSendCrawl.Click += new System.EventHandler(this.toolStripButtonSendCrawl_Click);
+            // 
+            // sendToCrawlToolStripMenuItem
+            // 
+            this.sendToCrawlToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.sendToCrawlToolStripMenuItem.Name = "sendToCrawlToolStripMenuItem";
+            this.sendToCrawlToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.sendToCrawlToolStripMenuItem.Text = "Send to crawl";
+            this.sendToCrawlToolStripMenuItem.Click += new System.EventHandler(this.sendToCrawlToolStripMenuItem_Click);
+            // 
+            // resetAndSendToCrawlToolStripMenuItem
+            // 
+            this.resetAndSendToCrawlToolStripMenuItem.Name = "resetAndSendToCrawlToolStripMenuItem";
+            this.resetAndSendToCrawlToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.resetAndSendToCrawlToolStripMenuItem.Text = "Reset and send to crawl";
+            this.resetAndSendToCrawlToolStripMenuItem.Click += new System.EventHandler(this.resetAndSendToCrawlToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(195, 6);
+            // 
+            // resetToDefaultToolStripMenuItem
+            // 
+            this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
+            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.resetToDefaultToolStripMenuItem.Text = "Reset to default";
+            this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.resetToDefaultToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -407,9 +450,9 @@ namespace NwsAlerts
             // EffectiveDate
             // 
             this.EffectiveDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.Format = "MM/dd/yy hh:mm tt";
-            dataGridViewCellStyle5.NullValue = null;
-            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Format = "MM/dd/yy hh:mm tt";
+            dataGridViewCellStyle1.NullValue = null;
+            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.EffectiveDate.HeaderText = "Effective";
             this.EffectiveDate.MinimumWidth = 100;
             this.EffectiveDate.Name = "EffectiveDate";
@@ -419,8 +462,8 @@ namespace NwsAlerts
             // ExpireDate
             // 
             this.ExpireDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Format = "MM/dd/yy hh:mm tt";
-            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Format = "MM/dd/yy hh:mm tt";
+            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle2;
             this.ExpireDate.HeaderText = "Expires";
             this.ExpireDate.MinimumWidth = 100;
             this.ExpireDate.Name = "ExpireDate";
@@ -484,47 +527,16 @@ namespace NwsAlerts
             this.columnHeader3.Text = "State";
             this.columnHeader3.Width = 57;
             // 
-            // toolStripButtonSendCrawl
+            // linkLabelExportWarning
             // 
-            this.toolStripButtonSendCrawl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSendCrawl.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sendToCrawlToolStripMenuItem,
-            this.resetAndSendToCrawlToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.resetToDefaultToolStripMenuItem});
-            this.toolStripButtonSendCrawl.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSendCrawl.Image")));
-            this.toolStripButtonSendCrawl.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSendCrawl.Name = "toolStripButtonSendCrawl";
-            this.toolStripButtonSendCrawl.Size = new System.Drawing.Size(32, 22);
-            this.toolStripButtonSendCrawl.Text = "Send text to crawl";
-            this.toolStripButtonSendCrawl.Click += new System.EventHandler(this.toolStripButtonSendCrawl_Click);
-            // 
-            // sendToCrawlToolStripMenuItem
-            // 
-            this.sendToCrawlToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.sendToCrawlToolStripMenuItem.Name = "sendToCrawlToolStripMenuItem";
-            this.sendToCrawlToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.sendToCrawlToolStripMenuItem.Text = "Send to crawl";
-            this.sendToCrawlToolStripMenuItem.Click += new System.EventHandler(this.sendToCrawlToolStripMenuItem_Click);
-            // 
-            // resetAndSendToCrawlToolStripMenuItem
-            // 
-            this.resetAndSendToCrawlToolStripMenuItem.Name = "resetAndSendToCrawlToolStripMenuItem";
-            this.resetAndSendToCrawlToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.resetAndSendToCrawlToolStripMenuItem.Text = "Reset and send to crawl";
-            this.resetAndSendToCrawlToolStripMenuItem.Click += new System.EventHandler(this.resetAndSendToCrawlToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(195, 6);
-            // 
-            // resetToDefaultToolStripMenuItem
-            // 
-            this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
-            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.resetToDefaultToolStripMenuItem.Text = "Reset to default";
-            this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.resetToDefaultToolStripMenuItem_Click);
+            this.linkLabelExportWarning.AutoSize = true;
+            this.linkLabelExportWarning.Location = new System.Drawing.Point(916, 337);
+            this.linkLabelExportWarning.Name = "linkLabelExportWarning";
+            this.linkLabelExportWarning.Size = new System.Drawing.Size(110, 15);
+            this.linkLabelExportWarning.TabIndex = 22;
+            this.linkLabelExportWarning.TabStop = true;
+            this.linkLabelExportWarning.Text = "Export warning text";
+            this.linkLabelExportWarning.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelExportWarning_LinkClicked);
             // 
             // FormMain
             // 
@@ -532,6 +544,7 @@ namespace NwsAlerts
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1038, 802);
+            this.Controls.Add(this.linkLabelExportWarning);
             this.Controls.Add(this.listViewZones);
             this.Controls.Add(this.richTextBoxAlert);
             this.Controls.Add(this.label6);
@@ -614,6 +627,7 @@ namespace NwsAlerts
         private System.Windows.Forms.ToolStripMenuItem resetAndSendToCrawlToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem resetToDefaultToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel linkLabelExportWarning;
     }
 }
 
