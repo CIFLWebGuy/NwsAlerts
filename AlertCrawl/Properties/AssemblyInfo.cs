@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AlertCrawl")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP")]
+[assembly: AssemblyCompany("VBW Software")]
 [assembly: AssemblyProduct("AlertCrawl")]
-[assembly: AssemblyCopyright("Copyright © HP 2021")]
+[assembly: AssemblyCopyright("Copyright © VBW Software 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
