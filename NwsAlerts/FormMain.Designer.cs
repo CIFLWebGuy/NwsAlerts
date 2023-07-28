@@ -31,8 +31,8 @@ namespace NwsAlerts
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabelUpdate = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelAvailable = new System.Windows.Forms.ToolStripStatusLabel();
@@ -254,7 +254,7 @@ namespace NwsAlerts
             this.toolStripButtonSendCrawl.Name = "toolStripButtonSendCrawl";
             this.toolStripButtonSendCrawl.Size = new System.Drawing.Size(32, 22);
             this.toolStripButtonSendCrawl.Text = "Send text to crawl";
-            this.toolStripButtonSendCrawl.Click += new System.EventHandler(this.toolStripButtonSendCrawl_Click);
+            this.toolStripButtonSendCrawl.ButtonClick += new System.EventHandler(this.toolStripButtonSendCrawl_ButtonClick);
             // 
             // sendToCrawlToolStripMenuItem
             // 
@@ -450,9 +450,9 @@ namespace NwsAlerts
             // EffectiveDate
             // 
             this.EffectiveDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle1.Format = "MM/dd/yy hh:mm tt";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "MM/dd/yy hh:mm tt";
+            dataGridViewCellStyle3.NullValue = null;
+            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle3;
             this.EffectiveDate.HeaderText = "Effective";
             this.EffectiveDate.MinimumWidth = 100;
             this.EffectiveDate.Name = "EffectiveDate";
@@ -462,8 +462,8 @@ namespace NwsAlerts
             // ExpireDate
             // 
             this.ExpireDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Format = "MM/dd/yy hh:mm tt";
-            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Format = "MM/dd/yy hh:mm tt";
+            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle4;
             this.ExpireDate.HeaderText = "Expires";
             this.ExpireDate.MinimumWidth = 100;
             this.ExpireDate.Name = "ExpireDate";

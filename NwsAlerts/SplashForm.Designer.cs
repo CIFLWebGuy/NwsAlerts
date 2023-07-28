@@ -34,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelLegal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,7 +42,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(11, 13);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(72, 69);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -87,16 +87,16 @@
             this.labelStatus.TabIndex = 5;
             this.labelStatus.Text = "Initalizing application...";
             // 
-            // label4
+            // labelLegal
             // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 115);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(392, 53);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Data is provided by the National Weather Service through the official API and is " +
+            this.labelLegal.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLegal.Location = new System.Drawing.Point(12, 115);
+            this.labelLegal.Name = "labelLegal";
+            this.labelLegal.Size = new System.Drawing.Size(392, 68);
+            this.labelLegal.TabIndex = 6;
+            this.labelLegal.Text = "Data is provided by the National Weather Service through the official API and is " +
     "not written by or endorsed by the National Weather Service. For personal use onl" +
-    "y.\r\n\r\n©2021 VBW Software";
+    "y.";
             // 
             // SplashForm
             // 
@@ -105,7 +105,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(416, 232);
             this.ControlBox = false;
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelLegal);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.label2);
@@ -113,7 +113,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SplashForm";
@@ -135,6 +135,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelLegal;
     }
 }
