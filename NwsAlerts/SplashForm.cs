@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -46,7 +47,16 @@ namespace NwsAlerts
 
         private void SplashForm_Load(object sender, EventArgs e)
         {
+            var attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+            string copyright = "";
+
+            if(attributes.Length > 0)
+            {
+                copyright = (attributes[0] as AssemblyCopyrightAttribute).Copyright;
+            }
+
             labelVersion.Text = Application.ProductVersion;
+            labelLegal.Text = $"{Properties.Resources.DisclaimerText}\n\n{copyright}";
         }
     }
 }
