@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Pipes;
@@ -271,60 +272,41 @@ namespace NwsAlerts
             string doc = File.ReadAllText("Warnings.html");
             StringBuilder body = new StringBuilder();
             StringBuilder crawl = new StringBuilder();
-            Dictionary<AlertGroup, List<Alert>> alerts = new Dictionary<AlertGroup, List<Alert>>();
+            int prevGroupID = -1;
 
-            crawl.Append(crawlMessage);
-
-            foreach (Alert alert in activeAlerts)
+            foreach (AlertEvent alertEvent in selectedEvents)
             {
-                AlertEvent alertEvent = selectedEvents.Where(evt => evt.Name == alert.Event).FirstOrDefault();
-                AlertGroup group = groupList.Where(g => g.ID == alertEvent.GroupID).FirstOrDefault();
-
-                if (group != null)
+                var alerts = activeAlerts.Where(e => e.Event == alertEvent.Name);
+                
+                foreach (var alert in alerts)
                 {
-                    if (!alerts.ContainsKey(group))
+                    if (alertEvent.DisplayLocation == DisplayLocation.Main)
                     {
-                        alerts.Add(group, new List<Alert>());
-                    }
+                        AlertGroup group = groupList.Where(g => g.ID == alertEvent.GroupID).Single();
 
-                    alerts[group].Add(alert);
-                }
-            }
-
-            foreach (KeyValuePair<AlertGroup, List<Alert>> alert in alerts)
-            {
-                AlertEvent alertEvent = selectedEvents.Where(evt => evt.GroupID == alert.Key.ID).FirstOrDefault();
-
-                if (alertEvent.DisplayLocation == DisplayLocation.Main)
-                {
-                    AlertGroup group = groupList.Where(g => g.ID == alertEvent.GroupID).FirstOrDefault();
-
-                    if (group != null)
-                    {
-                        body.AppendLine($"<h2 class=\"{group.CssClass}\">{group.Name}</h2>");
-
-                        foreach (Alert alertItem in alert.Value)
+                        if (group.ID != prevGroupID)
                         {
-                            if (group.ShowEvent)
-                            {
-                                body.AppendLine($"<p><h3>{alertItem.Event}</h3>{alertItem.AreaDesc}<br />until {alertItem.Expires:g}</p>");
-                            }
-                            else
-                            {
-                                body.AppendLine($"<p>{alertItem.AreaDesc} until {alertItem.Expires:g}</p>");
-                            }
+                            body.AppendLine($"<h2 class=\"{group.CssClass}\">{group.Name}</h2>");
+                            prevGroupID = group.ID;
+                        }
+
+                        if (group.ShowEvent)
+                        {
+                            body.AppendLine($"<p><h3>{alert.Event}</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                        }
+                        else
+                        {
+                            body.AppendLine($"<p>{alert.AreaDesc} until {alert.Expires:g}</p>");
                         }
 
                         body.AppendLine("<p>&nbsp;</p>");
                     }
-                }
-                else if (alertEvent.DisplayLocation == DisplayLocation.Crawl)
-                {
-                    foreach (Alert alertItem in alert.Value)
+                    else if (alertEvent.DisplayLocation == DisplayLocation.Crawl)
                     {
                         crawl.Append("●   ");
-                        crawl.Append(alertItem.Headline.ToUpper());
-                        crawl.Append(alertItem.Description.Replace("\r", "").Replace("\n", " ").ToUpper());
+                        crawl.Append(alert.Headline.ToUpper());
+                        crawl.Append("...");
+                        crawl.Append(alert.Description.Replace("\r", "").Replace("\n", " ").ToUpper());
                         crawl.Append("   ");
                     }
                 }
@@ -337,7 +319,12 @@ namespace NwsAlerts
             string output = doc.Replace("{alerts}", body.ToString());
 
             if (crawl.Length == 0)
-                crawl.Append("SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.");
+            {
+                if (crawlMessage == "")
+                    crawl.Append("SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.");
+                else
+                    crawl.Append(crawlMessage);
+            }
 
             try
             {
@@ -703,23 +690,27 @@ namespace NwsAlerts
             }
         }
 
-        private void toolStripButtonSendCrawl_Click(object sender, EventArgs e)
+        private void toolStripButtonSendCrawl_ButtonClick(object sender, EventArgs e)
         {
+            crawlMessage = toolStripTextBoxCrawl.Text;
             SendCrawl(toolStripTextBoxCrawl.Text);
         }
 
         private void sendToCrawlToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            crawlMessage = toolStripTextBoxCrawl.Text;
             SendCrawl(toolStripTextBoxCrawl.Text);
         }
 
         private void resetAndSendToCrawlToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            crawlMessage = toolStripTextBoxCrawl.Text;
             SendCrawl(toolStripTextBoxCrawl.Text, true);
         }
 
         private void resetToDefaultToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            crawlMessage = "";
             SendCrawl("SEVERE WEATHER IS POSSIBLE TODAY.  PLEASE REMAIN ALERT FOR CHANGING CONDITIONS.", true);
         }
 
