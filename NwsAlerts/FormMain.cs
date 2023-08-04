@@ -723,9 +723,26 @@ namespace NwsAlerts
 
             try
             {
+                StringBuilder expires = new StringBuilder();
+
+                if(alert.Expires.HasValue)
+                {
+                    expires.Append("Until ");
+
+                    if(alert.Expires.Value.Date == DateTime.Now.Date)
+                    {
+                        expires.Append(alert.Expires.Value.ToString("t"));
+                    }
+                    else
+                    {
+                        expires.Append(alert.Expires.Value.ToString("g"));
+                    }
+
+                    File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Expires.txt"), expires.ToString());
+                }
+
                 File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Warning.txt"), richTextBoxAlert.Text);
                 File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "AlertTitle.txt"), alert.Event);
-
             }
             catch (IOException ex)
             {
