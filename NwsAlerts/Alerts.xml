@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
 	<api endpoint="https://api.weather.gov" email="ciflwebguy@gmail.com" refresh="1" />
-	<http output="D:\OneDrive\Documents\Streaming\Weather" />
+	<http output="C:\Users\visua\OneDrive\Documents\Streaming\Weather" />
 	<groups>
 		<group name="Tornado" id="1" class="tornado" showEvent="false" />
 		<group name="Severe Thunderstorm" id="2" class="thunderstorm" showEvent="false" />

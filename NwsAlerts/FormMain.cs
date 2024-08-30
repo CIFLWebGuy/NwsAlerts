@@ -239,6 +239,23 @@ namespace NwsAlerts
                 row.CreateCells(dataGridViewAlerts, alert.Event, alert.Effective, alert.Expires, alert.AreaDesc);
                 row.Tag = alert.ID;
 
+                string description = alert.Description.ToUpper();
+                string instruction = string.IsNullOrEmpty(alert.Instruction) ? "" : alert.Instruction.ToUpper();
+
+                if (description.Contains("TORNADO EMERGENCY") || instruction.Contains("TORNADO EMERGENCY"))
+                {
+                    alert.Level = AlertLevel.TornadoEmergency;
+                    row.Cells[0].Style.ForeColor = Color.Purple;
+                    row.Cells[0].Value = "Tornado Emergency";
+                }
+                else if (description.Contains("PARTICULARLY DANGEROUS SITUATION") || instruction.Contains("PARTICULARLY DANGEROUS SITUATION"))
+                {
+                    alert.Level = AlertLevel.PDS;
+                    row.Cells[0].Style.ForeColor = Color.Red;
+                    row.Cells[0].Value = $"PDS {alert.Event}";
+                }
+                
+
                 dataGridViewAlerts.Rows.Add(row);
             }
 
@@ -292,14 +309,36 @@ namespace NwsAlerts
 
                         if (group.ShowEvent)
                         {
-                            body.AppendLine($"<p><h3>{alert.Event}</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            if (alert.Level == AlertLevel.TornadoEmergency)
+                            {
+                                body.AppendLine($"<p><h3>*** TORNADO EMERGENCY ***</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
+                            else if (alert.Level == AlertLevel.PDS)
+                            {
+                                body.AppendLine($"<p><h3>** PDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
+                            else
+                            {
+                                body.AppendLine($"<p><h3>{alert.Event}</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
                         }
                         else
                         {
-                            body.AppendLine($"<p>{alert.AreaDesc} until {alert.Expires:g}</p>");
+                            if (alert.Level == AlertLevel.TornadoEmergency)
+                            {
+                                body.AppendLine($"<p><b>*** TORNADO EMERGENCY ***</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
+                            else if (alert.Level == AlertLevel.PDS)
+                            {
+                                body.AppendLine($"<p><b>** PDS ALERT **</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
+                            else
+                            {
+                                body.AppendLine($"<p>{alert.AreaDesc} until {alert.Expires:g}</p>");
+                            }
                         }
 
-                        body.AppendLine("<p>&nbsp;</p>");
+                        //body.AppendLine("<p>&nbsp;</p>");
                     }
                     else if (alertEvent.DisplayLocation == DisplayLocation.Crawl)
                     {
@@ -564,7 +603,7 @@ namespace NwsAlerts
                 return;
 
             Alert alert = activeAlerts[dataGridViewAlerts.SelectedRows[0].Index];
-            richTextBoxAlert.Text = $"{alert.Headline}\n\n{alert.Description}";
+            richTextBoxAlert.Text = $"{alert.Headline}\n\n{alert.Description}\n\n{alert.Instruction}";
         }
 
         private void toolStripComboBoxState_SelectedIndexChanged(object sender, EventArgs e)
@@ -626,7 +665,7 @@ namespace NwsAlerts
             Invoke((MethodInvoker)delegate () { filters = GetFilters(); });
 
             AlertResponse response = api.GetAlerts(filters);
-            activeAlerts = response.Alerts.Where(a => a.Expires > DateTime.Now).ToList();
+            activeAlerts = response.Alerts.Where(a => a.Ends != null ? a.Ends > DateTime.Now : a.Expires > DateTime.Now).ToList();
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -724,18 +763,27 @@ namespace NwsAlerts
             try
             {
                 StringBuilder expires = new StringBuilder();
-
+                
                 if(alert.Expires.HasValue)
                 {
+                    DateTime untilTime = alert.Expires.Value;
+
+                    if (alert.Ends.HasValue && alert.Ends.Value > untilTime)
+                        untilTime = alert.Ends.Value;
+
                     expires.Append("Until ");
 
-                    if(alert.Expires.Value.Date == DateTime.Now.Date)
+                    if(untilTime == DateTime.Now.Date)
                     {
-                        expires.Append(alert.Expires.Value.ToString("t"));
+                        expires.Append(untilTime.ToString("t"));
+                    }
+                    else if (untilTime.Subtract(DateTime.Today).Days < 7)
+                    {
+                        expires.Append(untilTime.ToString("hh:mm tt dddd"));
                     }
                     else
                     {
-                        expires.Append(alert.Expires.Value.ToString("g"));
+                        expires.Append(untilTime.ToString("g"));
                     }
 
                     File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Expires.txt"), expires.ToString());

@@ -73,6 +73,11 @@ namespace NwsAlertApi
         public DateTime? Expires { get; set; }
 
         /// <summary>
+        /// Gets/sets the expected end time of the subject event of the alert message.
+        /// </summary>
+        public DateTime? Ends { get; set; }
+
+        /// <summary>
         /// Gets/sets the status of the alert.
         /// </summary>
         public string Status { get; set; }
@@ -142,5 +147,10 @@ namespace NwsAlertApi
         /// Gets/sets the alert parameters.
         /// </summary>
         public AlertParameters Parameters { get; set; }
+
+        /// <summary>
+        /// Gets/sets the alert level.
+        /// </summary>
+        public AlertLevel Level { get; set; }
     }
 }

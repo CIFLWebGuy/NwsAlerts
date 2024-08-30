@@ -110,4 +110,26 @@ namespace NwsAlertApi
         Fire,
         County
     }
+
+    /// <summary>
+    /// Defines the alert levels
+    /// </summary>
+    public enum AlertLevel
+    {
+        /// <summary>
+        /// The alert is a normal alert
+        /// </summary>
+        Normal,
+
+        /// <summary>
+        /// Alert is tagged as a PDS
+        /// </summary>
+        PDS,
+
+        /// <summary>
+        /// Alert is a Tornado Emergency
+        /// </summary>
+        TornadoEmergency
+    }
+
 }

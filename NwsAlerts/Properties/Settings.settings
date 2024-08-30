@@ -21,10 +21,10 @@ Urban And Small Stream Flood Advisory</Value>
       <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="OutputFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\Users\visua\OneDrive\Documents\Streaming\Weather</Value>
     </Setting>
     <Setting Name="WarningOutputPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\OneDrive\Documents\Streaming\Weather\</Value>
+      <Value Profile="(Default)">C:\Users\visua\OneDrive\Documents\Streaming\Weather\</Value>
     </Setting>
   </Settings>
 </SettingsFile>
