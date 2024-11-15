@@ -31,8 +31,6 @@ namespace NwsAlerts
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabelUpdate = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelAvailable = new System.Windows.Forms.ToolStripStatusLabel();
@@ -69,11 +67,6 @@ namespace NwsAlerts
             this.EventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Group = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.LocationName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewAlerts = new System.Windows.Forms.DataGridView();
-            this.AlertType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EffectiveDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ExpireDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.richTextBoxAlert = new System.Windows.Forms.RichTextBox();
             this.listViewZones = new System.Windows.Forms.ListView();
@@ -81,10 +74,15 @@ namespace NwsAlerts
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.linkLabelExportWarning = new System.Windows.Forms.LinkLabel();
+            this.listViewAlerts = new System.Windows.Forms.ListView();
+            this.columnHeaderAlert = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderExpires = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCounties = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageListTiles = new System.Windows.Forms.ImageList(this.components);
+            this.imageListSeverity = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlerts)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -417,66 +415,6 @@ namespace NwsAlerts
             this.LocationName.HeaderText = "Location";
             this.LocationName.Name = "LocationName";
             // 
-            // dataGridViewAlerts
-            // 
-            this.dataGridViewAlerts.AllowUserToAddRows = false;
-            this.dataGridViewAlerts.AllowUserToDeleteRows = false;
-            this.dataGridViewAlerts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewAlerts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAlerts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AlertType,
-            this.EffectiveDate,
-            this.ExpireDate,
-            this.Area});
-            this.dataGridViewAlerts.Location = new System.Drawing.Point(12, 581);
-            this.dataGridViewAlerts.MultiSelect = false;
-            this.dataGridViewAlerts.Name = "dataGridViewAlerts";
-            this.dataGridViewAlerts.ReadOnly = true;
-            this.dataGridViewAlerts.RowHeadersVisible = false;
-            this.dataGridViewAlerts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAlerts.Size = new System.Drawing.Size(456, 184);
-            this.dataGridViewAlerts.TabIndex = 15;
-            this.dataGridViewAlerts.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewAlerts_CellMouseDoubleClick);
-            this.dataGridViewAlerts.SelectionChanged += new System.EventHandler(this.dataGridViewAlerts_SelectionChanged);
-            // 
-            // AlertType
-            // 
-            this.AlertType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.AlertType.HeaderText = "Alert";
-            this.AlertType.MinimumWidth = 100;
-            this.AlertType.Name = "AlertType";
-            this.AlertType.ReadOnly = true;
-            // 
-            // EffectiveDate
-            // 
-            this.EffectiveDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Format = "MM/dd/yy hh:mm tt";
-            dataGridViewCellStyle3.NullValue = null;
-            this.EffectiveDate.DefaultCellStyle = dataGridViewCellStyle3;
-            this.EffectiveDate.HeaderText = "Effective";
-            this.EffectiveDate.MinimumWidth = 100;
-            this.EffectiveDate.Name = "EffectiveDate";
-            this.EffectiveDate.ReadOnly = true;
-            this.EffectiveDate.Visible = false;
-            // 
-            // ExpireDate
-            // 
-            this.ExpireDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Format = "MM/dd/yy hh:mm tt";
-            this.ExpireDate.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ExpireDate.HeaderText = "Expires";
-            this.ExpireDate.MinimumWidth = 100;
-            this.ExpireDate.Name = "ExpireDate";
-            this.ExpireDate.ReadOnly = true;
-            // 
-            // Area
-            // 
-            this.Area.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Area.HeaderText = "Area";
-            this.Area.MinimumWidth = 200;
-            this.Area.Name = "Area";
-            this.Area.ReadOnly = true;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -507,7 +445,7 @@ namespace NwsAlerts
             this.listViewZones.HideSelection = false;
             this.listViewZones.Location = new System.Drawing.Point(12, 355);
             this.listViewZones.Name = "listViewZones";
-            this.listViewZones.Size = new System.Drawing.Size(456, 220);
+            this.listViewZones.Size = new System.Drawing.Size(456, 163);
             this.listViewZones.TabIndex = 21;
             this.listViewZones.UseCompatibleStateImageBehavior = false;
             this.listViewZones.View = System.Windows.Forms.View.Details;
@@ -538,17 +476,101 @@ namespace NwsAlerts
             this.linkLabelExportWarning.Text = "Export warning text";
             this.linkLabelExportWarning.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelExportWarning_LinkClicked);
             // 
+            // listViewAlerts
+            // 
+            this.listViewAlerts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderAlert,
+            this.columnHeaderExpires,
+            this.columnHeaderCounties});
+            this.listViewAlerts.FullRowSelect = true;
+            this.listViewAlerts.HideSelection = false;
+            this.listViewAlerts.LargeImageList = this.imageListTiles;
+            this.listViewAlerts.Location = new System.Drawing.Point(12, 524);
+            this.listViewAlerts.Name = "listViewAlerts";
+            this.listViewAlerts.Size = new System.Drawing.Size(456, 241);
+            this.listViewAlerts.TabIndex = 23;
+            this.listViewAlerts.TileSize = new System.Drawing.Size(440, 50);
+            this.listViewAlerts.UseCompatibleStateImageBehavior = false;
+            this.listViewAlerts.View = System.Windows.Forms.View.Tile;
+            this.listViewAlerts.SelectedIndexChanged += new System.EventHandler(this.listViewAlerts_SelectedIndexChanged);
+            // 
+            // columnHeaderAlert
+            // 
+            this.columnHeaderAlert.Text = "Alert";
+            // 
+            // columnHeaderExpires
+            // 
+            this.columnHeaderExpires.Text = "Expires";
+            // 
+            // columnHeaderCounties
+            // 
+            this.columnHeaderCounties.Text = "Counties";
+            // 
+            // imageListTiles
+            // 
+            this.imageListTiles.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTiles.ImageStream")));
+            this.imageListTiles.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListTiles.Images.SetKeyName(0, "Advisory");
+            this.imageListTiles.Images.SetKeyName(1, "Watch");
+            this.imageListTiles.Images.SetKeyName(2, "Warning");
+            this.imageListTiles.Images.SetKeyName(3, "Extreme");
+            this.imageListTiles.Images.SetKeyName(4, "AQI Alert");
+            this.imageListTiles.Images.SetKeyName(5, "Blizzard Warning");
+            this.imageListTiles.Images.SetKeyName(6, "Blizzard Watch");
+            this.imageListTiles.Images.SetKeyName(7, "Cold Warning");
+            this.imageListTiles.Images.SetKeyName(8, "Cold Watch");
+            this.imageListTiles.Images.SetKeyName(9, "Excessive Wind Warning");
+            this.imageListTiles.Images.SetKeyName(10, "Excessive Wind Watch");
+            this.imageListTiles.Images.SetKeyName(11, "Flood Advisory");
+            this.imageListTiles.Images.SetKeyName(12, "Flood Warning");
+            this.imageListTiles.Images.SetKeyName(13, "Flood Watch");
+            this.imageListTiles.Images.SetKeyName(14, "Heat Advisory");
+            this.imageListTiles.Images.SetKeyName(15, "Heat Warning");
+            this.imageListTiles.Images.SetKeyName(16, "Heat Watch");
+            this.imageListTiles.Images.SetKeyName(17, "Hurricane Warning");
+            this.imageListTiles.Images.SetKeyName(18, "Hurricane Watch");
+            this.imageListTiles.Images.SetKeyName(19, "Ice Storm Warning");
+            this.imageListTiles.Images.SetKeyName(20, "Thunderstorm Warning PDS");
+            this.imageListTiles.Images.SetKeyName(21, "Thunderstorm Warning");
+            this.imageListTiles.Images.SetKeyName(22, "Thunderstorm Watch copy");
+            this.imageListTiles.Images.SetKeyName(23, "Thunderstorm Watch PDS");
+            this.imageListTiles.Images.SetKeyName(24, "Thunderstorm Watch");
+            this.imageListTiles.Images.SetKeyName(25, "Tornado Emergency");
+            this.imageListTiles.Images.SetKeyName(26, "Tornado Warning PDS");
+            this.imageListTiles.Images.SetKeyName(27, "Tornado Warning");
+            this.imageListTiles.Images.SetKeyName(28, "Tornado Watch PDS");
+            this.imageListTiles.Images.SetKeyName(29, "Tornado Watch");
+            this.imageListTiles.Images.SetKeyName(30, "Tropical Storm Warning");
+            this.imageListTiles.Images.SetKeyName(31, "Tropical Storm Watch");
+            this.imageListTiles.Images.SetKeyName(32, "Wind Advisory");
+            this.imageListTiles.Images.SetKeyName(33, "Wind Warning");
+            this.imageListTiles.Images.SetKeyName(34, "Wind Watch");
+            this.imageListTiles.Images.SetKeyName(35, "Winter Storm Warning");
+            this.imageListTiles.Images.SetKeyName(36, "Winter Storm Watch");
+            this.imageListTiles.Images.SetKeyName(37, "Winter Weather Advisory");
+            // 
+            // imageListSeverity
+            // 
+            this.imageListSeverity.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListSeverity.ImageStream")));
+            this.imageListSeverity.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListSeverity.Images.SetKeyName(0, "Advisory");
+            this.imageListSeverity.Images.SetKeyName(1, "Watch");
+            this.imageListSeverity.Images.SetKeyName(2, "PDS Watch");
+            this.imageListSeverity.Images.SetKeyName(3, "Warning");
+            this.imageListSeverity.Images.SetKeyName(4, "Extreme");
+            this.imageListSeverity.Images.SetKeyName(5, "Emergency.png");
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1038, 802);
+            this.Controls.Add(this.listViewAlerts);
             this.Controls.Add(this.linkLabelExportWarning);
             this.Controls.Add(this.listViewZones);
             this.Controls.Add(this.richTextBoxAlert);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.dataGridViewAlerts);
             this.Controls.Add(this.dataGridViewEvents);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkedListBoxSeverity);
@@ -573,7 +595,6 @@ namespace NwsAlerts
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlerts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -603,21 +624,13 @@ namespace NwsAlerts
         private System.Windows.Forms.ToolStripStatusLabel statusLabelAvailable;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelActive;
         private System.Windows.Forms.DataGridView dataGridViewEvents;
-        private System.Windows.Forms.DataGridView dataGridViewAlerts;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox richTextBoxAlert;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlertType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EffectiveDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ExpireDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Area;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelAlerts;
         private System.Windows.Forms.ListView listViewZones;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Group;
-        private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
         private System.Windows.Forms.ToolStripButton toolStripButtonCrawl;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
@@ -628,6 +641,15 @@ namespace NwsAlerts
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem resetToDefaultToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkLabelExportWarning;
+        private System.Windows.Forms.ListView listViewAlerts;
+        private System.Windows.Forms.ColumnHeader columnHeaderAlert;
+        private System.Windows.Forms.ColumnHeader columnHeaderExpires;
+        private System.Windows.Forms.ColumnHeader columnHeaderCounties;
+        private System.Windows.Forms.ImageList imageListSeverity;
+        private System.Windows.Forms.ImageList imageListTiles;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Group;
+        private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
     }
 }
 

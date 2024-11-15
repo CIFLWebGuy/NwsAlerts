@@ -27,6 +27,17 @@ namespace NwsAlerts
         public DisplayLocation DisplayLocation { get; set; }
 
         /// <summary>
+        /// Gets/sets the image key used in the list.
+        /// </summary>
+        public string ImageKey { get; set; }
+        
+        public AlertEvent()
+        {
+            Name = "";
+            ImageKey = "";
+        }
+
+        /// <summary>
         /// Returns the string representation of this instance.
         /// </summary>
         /// <returns>The value of the <see cref="Name"/> property.</returns>

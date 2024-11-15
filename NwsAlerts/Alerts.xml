@@ -1,51 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
-	<api endpoint="https://api.weather.gov" email="ciflwebguy@gmail.com" refresh="1" />
-	<http output="C:\Users\visua\OneDrive\Documents\Streaming\Weather" />
-	<groups>
-		<group name="Tornado" id="1" class="tornado" showEvent="false" />
-		<group name="Severe Thunderstorm" id="2" class="thunderstorm" showEvent="false" />
-		<group name="Flood Advisories" id="3" class="flood" showEvent="true" />
-		<group name="Winter Weather" id="4" class="winter" showEvent="true" />
-		<group name="Hazard" id="5" class="hazard" showEvent="true" />
-	</groups>
-	<events>
-		<event name="Tornado Warning" groupID="1" location="0" />
-		<event name="Blizzard Warning" groupID="4" location="0" />
-		<event name="Blizzard Watch" groupID="4" location="0" />
-		<event name="Excessive Heat Warning" groupID="5" location="0" />
-		<event name="Excessive Heat Watch" groupID="5" location="0" />
-		<event name="Extreme Cold Warning" groupID="4" location="0" />
-		<event name="Extreme Cold Watch" groupID="4" location="0" />
-		<event name="Extreme Wind Warning" groupID="5" location="0" />
-		<event name="Flash Flood Statement" groupID="3" location="0" />
-		<event name="Flash Flood Warning" groupID="3" location="0" />
-		<event name="Flash Flood Watch" groupID="3" location="0" />
-		<event name="Flood Advisory" groupID="3" location="0" />
-		<event name="Flood Statement" groupID="3" location="0" />
-		<event name="Flood Warning" groupID="3" location="0" />
-		<event name="Flood Watch" groupID="3" location="0" />
-		<event name="Heat Advisory" groupID="5" location="0" />
-		<event name="High Wind Warning" groupID="5" location="0" />
-		<event name="High Wind Watch" groupID="5" location="0" />
-		<event name="Lake Effect Snow Advisory" groupID="4" location="0" />
-		<event name="Lake Effect Snow Warning" groupID="4" location="0" />
-		<event name="Lake Effect Snow Watch" groupID="4" location="0" />
-		<event name="Ice Storm Warning" groupID="4" location="0" />
-		<event name="Severe Thunderstorm Warning" groupID="2" location="0" />
-		<event name="Severe Thunderstorm Watch" groupID="2" location="0" />
-		<event name="Severe Weather Statement" groupID="0" location="1" />
-		<event name="Snow Squall Warning" groupID="4" location="0" />
-		<event name="Small Stream Flood Advisory" groupID="3" location="0" />
-		<event name="Special Weather Statement" groupID="0" location="1" />
-		<event name="Tornado Watch" groupID="1" location="0" />
-		<event name="Urban And Small Stream Flood Advisory" groupID="3" location="0" />
-		<event name="Wind Advisory" groupID="5" location="0" />
-		<event name="Wind Chill Advisory" groupID="5" location="0" />
-		<event name="Wind Chill Warning" groupID="4" location="0" />
-		<event name="Wind Chill Watch" groupID="4" location="0" />
-		<event name="Winter Storm Warning" groupID="4" location="0" />
-		<event name="Winter Storm Watch" groupID="4" location="0" />
-		<event name="Winter Weather Advisory" groupID="4" location="0" />
-	</events>
+  <api endpoint="https://api.weather.gov" email="ciflwebguy@gmail.com" refresh="1" />
+  <http output="C:\Users\visua\OneDrive\Documents\Streaming\Weather" />
+  <groups>
+    <group name="Tornado" id="1" class="tornado" showEvent="false" />
+    <group name="Severe Thunderstorm" id="2" class="thunderstorm" showEvent="false" />
+    <group name="Flood Advisories" id="3" class="flood" showEvent="true" />
+    <group name="Winter Weather" id="4" class="winter" showEvent="true" />
+    <group name="Hazard" id="5" class="hazard" showEvent="true" />
+  </groups>
+  <events>
+    <event name="Tornado Warning" groupID="1" location="0" icon="Tornado Warning" />
+    <event name="Blizzard Warning" groupID="4" location="0" icon="Blizzard Warning" />
+    <event name="Blizzard Watch" groupID="4" location="0" icon="Blizzard Watch" />
+    <event name="Excessive Heat Warning" groupID="5" location="0" icon="Heat Warning" />
+    <event name="Excessive Heat Watch" groupID="5" location="0" icon="Heat Watch" />
+    <event name="Extreme Cold Warning" groupID="4" location="0" icon="Cold Warning" />
+    <event name="Extreme Cold Watch" groupID="4" location="0" icon="Cold Watch" />
+    <event name="Extreme Wind Warning" groupID="5" location="0" icon="Excessive Wind Warning" />
+    <event name="Flash Flood Statement" groupID="3" location="0" icon="Flood Advisory" />
+    <event name="Flash Flood Warning" groupID="3" location="0" icon="Flood Warning" />
+    <event name="Flash Flood Watch" groupID="3" location="0" icon="Flood Watch" />
+    <event name="Flood Advisory" groupID="3" location="0" icon="Flood Advisory" />
+    <event name="Flood Statement" groupID="3" location="0" icon="Flood Advisory" />
+    <event name="Flood Warning" groupID="3" location="0" icon="Flood Warning" />
+    <event name="Flood Watch" groupID="3" location="0" icon="Flood Watch" />
+    <event name="Heat Advisory" groupID="5" location="0" icon="Heat Advisory" />
+    <event name="High Wind Warning" groupID="5" location="0" icon="Wind Warning" />
+    <event name="High Wind Watch" groupID="5" location="0" icon="Wind Watch" />
+    <event name="Lake Effect Snow Advisory" groupID="4" location="0" icon="Winter Weather Advisory" />
+    <event name="Lake Effect Snow Warning" groupID="4" location="0" icon="Winter Storm Warning" />
+    <event name="Lake Effect Snow Watch" groupID="4" location="0" icon="Winter Storm Watch" />
+    <event name="Ice Storm Warning" groupID="4" location="0" icon="Ice Storm Warning" />
+    <event name="Severe Thunderstorm Warning" groupID="2" location="0" icon="Thunderstorm Warning" />
+    <event name="Severe Thunderstorm Watch" groupID="2" location="1" icon="Thunderstorm Watch" />
+    <event name="Severe Weather Statement" groupID="2" location="1" icon="Advisory" />
+    <event name="Snow Squall Warning" groupID="4" location="0" icon="Winter Storm Warning" />
+    <event name="Small Stream Flood Advisory" groupID="3" location="0" icon="Flood Advisory" />
+    <event name="Special Weather Statement" groupID="2" location="1" icon="Advisory" />
+    <event name="Tornado Watch" groupID="1" location="1" icon="Tornado Watch" />
+    <event name="Urban And Small Stream Flood Advisory" groupID="3" location="0" icon="Flood Advisory" />
+    <event name="Wind Advisory" groupID="5" location="0" icon="Wind Advisory" />
+    <event name="Wind Chill Advisory" groupID="5" location="0" icon="Cold Watch" />
+    <event name="Wind Chill Warning" groupID="4" location="0" icon="Cold Warning" />
+    <event name="Wind Chill Watch" groupID="4" location="0" icon="Cold Watch" />
+    <event name="Winter Storm Warning" groupID="4" location="0" icon="Winter Storm Warning" />
+    <event name="Winter Storm Watch" groupID="4" location="0" icon="Winter Storm Watch" />
+    <event name="Winter Weather Advisory" groupID="4" location="0" icon="Winter Weather Advisory" />
+    <event name="Air Quality Alert" groupID="5" location="0" icon="AQI Alert" />
+  </events>
 </configuration>

@@ -314,7 +314,7 @@ namespace NwsAlertApi
 
         private RestRequest InitalizeRequest(string endpoint)
         {
-            var request = new RestRequest(endpoint, Method.GET);
+            var request = new RestRequest(endpoint, Method.Get);
             request.AddHeader("User-Agent", UserAgent);
             request.AddHeader("Accept", "application/ld+json");
 

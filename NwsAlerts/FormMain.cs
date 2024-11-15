@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -77,6 +78,7 @@ namespace NwsAlerts
                 item.ShowEvent = group.Attribute("showEvent").Value == "true";
 
                 groupList.Add(item);
+                listViewAlerts.Groups.Add(item.ID.ToString(), item.Name);
             }
 
             foreach(XElement item in events.Elements())
@@ -85,6 +87,7 @@ namespace NwsAlerts
                 alertEvent.Name = item.Attribute("name").Value;
                 alertEvent.GroupID = int.Parse(item.Attribute("groupID").Value);
                 alertEvent.DisplayLocation = (DisplayLocation)int.Parse(item.Attribute("location").Value);
+                alertEvent.ImageKey = item.Attribute("icon").Value.ToString();
 
                 selectedEvents.Add(alertEvent); 
             }
@@ -120,7 +123,7 @@ namespace NwsAlerts
                 element.SetAttributeValue("name", item.Name);
                 element.SetAttributeValue("groupID", item.GroupID);
                 element.SetAttributeValue("location", (int)item.DisplayLocation);
-
+                element.SetAttributeValue("icon", item.ImageKey);
                 events.Add(element);
             }
 
@@ -220,24 +223,24 @@ namespace NwsAlerts
 
         private void PopulateAlertList()
         {
-            string selectedAlertId;
+            ListViewItem selectedItem = null;
+            
+            if(listViewAlerts.SelectedItems.Count != 0)
+                selectedItem = listViewAlerts.SelectedItems[0];
 
-            if(dataGridViewAlerts.SelectedRows.Count != 0)
-            {
-                selectedAlertId = dataGridViewAlerts.SelectedRows[0].Tag.ToString();
-            }
-            else
-            {
-                selectedAlertId = "";
-            }
+            listViewAlerts.Items.Clear();
 
-            dataGridViewAlerts.Rows.Clear();
-
-            foreach (Alert alert in activeAlerts)
+            foreach(Alert alert in activeAlerts)
             {
-                DataGridViewRow row = new DataGridViewRow();
-                row.CreateCells(dataGridViewAlerts, alert.Event, alert.Effective, alert.Expires, alert.AreaDesc);
-                row.Tag = alert.ID;
+                AlertEvent alertEvent = selectedEvents.Where(e => e.Name == alert.Event).FirstOrDefault();
+
+                ListViewItem item = new ListViewItem();
+                item.Text = alert.Event;
+                item.SubItems.Add(alert.AreaDesc);
+                item.SubItems.Add($"until {alert.Expires}");
+                item.ImageKey = alertEvent.ImageKey;
+                item.Group = listViewAlerts.Groups[alertEvent.GroupID.ToString()];
+                item.Tag = alert.ID;
 
                 string description = alert.Description.ToUpper();
                 string instruction = string.IsNullOrEmpty(alert.Instruction) ? "" : alert.Instruction.ToUpper();
@@ -245,31 +248,38 @@ namespace NwsAlerts
                 if (description.Contains("TORNADO EMERGENCY") || instruction.Contains("TORNADO EMERGENCY"))
                 {
                     alert.Level = AlertLevel.TornadoEmergency;
-                    row.Cells[0].Style.ForeColor = Color.Purple;
-                    row.Cells[0].Value = "Tornado Emergency";
+                    item.Text = "*** TORNADO EMERGENCY ***";
+                    item.ImageKey = "Tornado Emergency";
                 }
                 else if (description.Contains("PARTICULARLY DANGEROUS SITUATION") || instruction.Contains("PARTICULARLY DANGEROUS SITUATION"))
                 {
                     alert.Level = AlertLevel.PDS;
-                    row.Cells[0].Style.ForeColor = Color.Red;
-                    row.Cells[0].Value = $"PDS {alert.Event}";
-                }
-                
+                    item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
 
-                dataGridViewAlerts.Rows.Add(row);
-            }
-
-            dataGridViewAlerts.AutoResizeRows();
-
-            if (selectedAlertId != "")
-            {
-                for (int i = 0; i < dataGridViewAlerts.Rows.Count; i++)
-                {
-                    if (dataGridViewAlerts.Rows[i].Tag.ToString() == selectedAlertId)
+                    switch(alert.Event.ToUpper())
                     {
-                        dataGridViewAlerts.Rows[i].Selected = true;
+                        case "TORNADO WATCH":
+                            item.ImageKey = "Tornado Watch PDS";
+                            break;
+
+                        case "TORNADO WARNING":
+                            item.ImageKey = "Tornado Warning PDS";
+                            break;
+
+                        case "SEVERE THUNDERSTORM WATCH":
+                            item.ImageKey = "Thunderstorm Watch PDS";
+                            break;
+
+                        case "SEVERE THUNDERSTORM WARNING":
+                            item.ImageKey = "Thunderstorm Warning PDS";
+                            break;
                     }
                 }
+
+                listViewAlerts.Items.Add(item);
+
+                if(selectedItem != null && item.Tag == selectedItem.Tag)
+                    item.Selected = true;
             }
         }
 
@@ -481,6 +491,17 @@ namespace NwsAlerts
             propertyWindow = new PropertyForm();
         }
 
+        private Dictionary<string, string> GetImageMap()
+        {
+            Dictionary<string, string> imageMap = new Dictionary<string, string>();
+
+            foreach(AlertEvent alert in selectedEvents)
+            {
+                imageMap.Add(alert.Name, alert.ImageKey);
+            }
+
+            return imageMap;
+        }
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -560,8 +581,15 @@ namespace NwsAlerts
         {
             using(SettingsDlog dlog = new SettingsDlog())
             {
+                dlog.NeedImageSettings += SettingsDlog_NeedImageSettings;
                 dlog.ShowDialog();
             }
+        }
+
+        private void SettingsDlog_NeedImageSettings(object sender, NeedImageSettingsArgs e)
+        {
+            e.Images = imageListTiles;
+            e.ImageMap = GetImageMap();
         }
 
         private void dataGridViewEvents_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -593,17 +621,6 @@ namespace NwsAlerts
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
             RefreshAlerts();
-        }
-
-        private void dataGridViewAlerts_SelectionChanged(object sender, EventArgs e)
-        {
-            richTextBoxAlert.Text = "";
-
-            if (dataGridViewAlerts.SelectedRows.Count == 0)
-                return;
-
-            Alert alert = activeAlerts[dataGridViewAlerts.SelectedRows[0].Index];
-            richTextBoxAlert.Text = $"{alert.Headline}\n\n{alert.Description}\n\n{alert.Instruction}";
         }
 
         private void toolStripComboBoxState_SelectedIndexChanged(object sender, EventArgs e)
@@ -684,14 +701,6 @@ namespace NwsAlerts
             Task.Run(() => { GenerateOutput(); });
         }
 
-        private void dataGridViewAlerts_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            Alert alert = activeAlerts[dataGridViewAlerts.SelectedRows[0].Index];
-
-            propertyWindow.BrowseAlert(alert);
-            propertyWindow.Show();
-        }
-
         private void toolStripButtonCrawl_Click(object sender, EventArgs e)
         {
             if(toolStripButtonCrawl.Checked)
@@ -758,7 +767,7 @@ namespace NwsAlerts
             if (richTextBoxAlert.Text == "")
                 return;
 
-            Alert alert = activeAlerts[dataGridViewAlerts.SelectedRows[0].Index];
+            Alert alert = new Alert();
 
             try
             {
@@ -795,6 +804,22 @@ namespace NwsAlerts
             catch (IOException ex)
             {
                 MessageBox.Show(this, $"A problem was encounterd while exporting the warning text. {ex.Message}", "Export Warning Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void listViewAlerts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewAlerts.SelectedItems.Count == 0)
+            {
+                richTextBoxAlert.Text = "";
+                return;
+            }
+
+            var alert = activeAlerts.Where(a => a.ID == listViewAlerts.SelectedItems[0].Tag.ToString()).FirstOrDefault();
+
+            if(alert != null)
+            {
+                richTextBoxAlert.Text = alert.Headline + "\n\n" + alert.Description + alert.Instruction;
             }
         }
     }
