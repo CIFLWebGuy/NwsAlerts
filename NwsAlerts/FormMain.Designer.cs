@@ -230,7 +230,7 @@ namespace NwsAlerts
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(63, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(62, 22);
             this.toolStripLabel2.Text = "Crawl text:";
             // 
             // toolStripTextBoxCrawl
@@ -420,7 +420,7 @@ namespace NwsAlerts
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(484, 337);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 15);
+            this.label6.Size = new System.Drawing.Size(57, 15);
             this.label6.TabIndex = 17;
             this.label6.Text = "Alert text:";
             // 
@@ -470,7 +470,7 @@ namespace NwsAlerts
             this.linkLabelExportWarning.AutoSize = true;
             this.linkLabelExportWarning.Location = new System.Drawing.Point(916, 337);
             this.linkLabelExportWarning.Name = "linkLabelExportWarning";
-            this.linkLabelExportWarning.Size = new System.Drawing.Size(110, 15);
+            this.linkLabelExportWarning.Size = new System.Drawing.Size(108, 15);
             this.linkLabelExportWarning.TabIndex = 22;
             this.linkLabelExportWarning.TabStop = true;
             this.linkLabelExportWarning.Text = "Export warning text";
@@ -482,17 +482,21 @@ namespace NwsAlerts
             this.columnHeaderAlert,
             this.columnHeaderExpires,
             this.columnHeaderCounties});
-            this.listViewAlerts.FullRowSelect = true;
+            this.listViewAlerts.Cursor = System.Windows.Forms.Cursors.Default;
             this.listViewAlerts.HideSelection = false;
+            this.listViewAlerts.LabelEdit = true;
             this.listViewAlerts.LargeImageList = this.imageListTiles;
             this.listViewAlerts.Location = new System.Drawing.Point(12, 524);
+            this.listViewAlerts.MultiSelect = false;
             this.listViewAlerts.Name = "listViewAlerts";
+            this.listViewAlerts.ShowItemToolTips = true;
             this.listViewAlerts.Size = new System.Drawing.Size(456, 241);
             this.listViewAlerts.TabIndex = 23;
             this.listViewAlerts.TileSize = new System.Drawing.Size(440, 50);
             this.listViewAlerts.UseCompatibleStateImageBehavior = false;
             this.listViewAlerts.View = System.Windows.Forms.View.Tile;
             this.listViewAlerts.SelectedIndexChanged += new System.EventHandler(this.listViewAlerts_SelectedIndexChanged);
+            this.listViewAlerts.DoubleClick += new System.EventHandler(this.listViewAlerts_DoubleClick);
             // 
             // columnHeaderAlert
             // 

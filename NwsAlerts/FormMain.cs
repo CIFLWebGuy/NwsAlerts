@@ -52,6 +52,7 @@ namespace NwsAlerts
 
             api = new ApiClient(apiEndpoint, userAgent);
             crawlMessage = "";
+            propertyWindow = new PropertyForm();
         }
 
         private void LoadConfiguration()
@@ -237,10 +238,20 @@ namespace NwsAlerts
                 ListViewItem item = new ListViewItem();
                 item.Text = alert.Event;
                 item.SubItems.Add(alert.AreaDesc);
-                item.SubItems.Add($"until {alert.Expires}");
+
+                if (alert.Ends != null)
+                {
+                    item.SubItems.Add($"until {alert.Ends}");
+                }
+                else
+                {
+                    item.SubItems.Add($" until {alert.Expires}");
+                }
+
                 item.ImageKey = alertEvent.ImageKey;
                 item.Group = listViewAlerts.Groups[alertEvent.GroupID.ToString()];
                 item.Tag = alert.ID;
+                item.ToolTipText = alert.AreaDesc;
 
                 string description = alert.Description.ToUpper();
                 string instruction = string.IsNullOrEmpty(alert.Instruction) ? "" : alert.Instruction.ToUpper();
@@ -255,6 +266,7 @@ namespace NwsAlerts
                 {
                     alert.Level = AlertLevel.PDS;
                     item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
+                    item.SubItems[0].ForeColor = Color.DarkRed;
 
                     switch(alert.Event.ToUpper())
                     {
@@ -767,7 +779,10 @@ namespace NwsAlerts
             if (richTextBoxAlert.Text == "")
                 return;
 
-            Alert alert = new Alert();
+            if(listViewAlerts.SelectedItems.Count == 0)
+                return;
+
+            Alert alert = activeAlerts.Where(a => a.ID == listViewAlerts.SelectedItems[0].Tag.ToString()).Single();
 
             try
             {
@@ -821,6 +836,15 @@ namespace NwsAlerts
             {
                 richTextBoxAlert.Text = alert.Headline + "\n\n" + alert.Description + alert.Instruction;
             }
+        }
+
+        private void listViewAlerts_DoubleClick(object sender, EventArgs e)
+        {
+            if (listViewAlerts.SelectedItems.Count == 0)
+                return;
+
+            propertyWindow.BrowseAlert(activeAlerts.Where(a => a.ID == listViewAlerts.SelectedItems[0].Tag.ToString()).FirstOrDefault());
+            propertyWindow.Show();
         }
     }
 }
