@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -214,9 +213,13 @@ namespace NwsAlerts
                 alertFilters.Events.Add(item.Name);
             }
 
-            foreach(ListViewItem item in listViewZones.CheckedItems)
+            foreach(TreeNode root in treeViewZones.Nodes)
             {
-                alertFilters.Area.Zones.Add(item.Text);
+                foreach (TreeNode node in root.Nodes)
+                {
+                    if (node.Checked)
+                        alertFilters.Area.Zones.Add(node.Tag.ToString());
+                }
             }
 
             return alertFilters;
@@ -293,17 +296,6 @@ namespace NwsAlerts
                 if(selectedItem != null && item.Tag == selectedItem.Tag)
                     item.Selected = true;
             }
-        }
-
-        private ListViewGroup GetZoneGroup(string wfo)
-        {
-            foreach(ListViewGroup group in listViewZones.Groups)
-            {
-                if(group.Header.Contains($"({wfo})"))
-                    return group;
-            }
-
-            return null;
         }
 
         private void GenerateOutput()
@@ -637,8 +629,8 @@ namespace NwsAlerts
 
         private void toolStripComboBoxState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listViewZones.Items.Clear();
-            listViewZones.Groups.Clear();
+            treeViewZones.Nodes.Clear();
+            treeViewZones.BeginUpdate();
 
             GeographicArea area = new GeographicArea();
             area.StateCodes.Add(toolStripComboBoxState.Text);
@@ -650,27 +642,28 @@ namespace NwsAlerts
             {
                 NwsOffice office = api.GetOffice(g);
 
-                ListViewGroup group = new ListViewGroup();
-                group.Header = $"{office.Name} ({g})";
-                group.Name = g;
+                TreeNode root = new TreeNode();
+
+                root.Text = $"{office.Name} ({g})";
+                root.Name = g;
                 
-                listViewZones.Groups.Add(group);
+                treeViewZones.Nodes.Add(root);
             }
 
             foreach (Zone zone in zones)
             {
                 if(zone.NwsZoneType == NwsZoneType.Land && zone.ID.Substring(2,1) == "C")
                 {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = $"{zone.ID}";
-                    lvi.SubItems.Add(zone.Name);
-                    lvi.SubItems.Add(zone.State);
-                    lvi.Group = GetZoneGroup(zone.Cwa[0]);
+                    TreeNode node = new TreeNode();
+                    node.Text = $"{zone.ID} - {zone.Name} ({zone.State})";
+                    node.Tag = zone.ID;
 
-                    listViewZones.Items.Add(lvi);
+                    TreeNode parent = treeViewZones.Nodes[zone.Cwa[0]];
+                    parent.Nodes.Add(node);
                 }
             }
 
+            treeViewZones.EndUpdate();
             resetCrawl = true;
         }
 
@@ -845,6 +838,17 @@ namespace NwsAlerts
 
             propertyWindow.BrowseAlert(activeAlerts.Where(a => a.ID == listViewAlerts.SelectedItems[0].Tag.ToString()).FirstOrDefault());
             propertyWindow.Show();
+        }
+
+        private void treeViewZones_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Parent != null)
+                return;
+
+            foreach(TreeNode node in e.Node.Nodes)
+            {
+                node.Checked = e.Node.Checked;
+            }
         }
     }
 }

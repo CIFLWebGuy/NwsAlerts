@@ -69,10 +69,6 @@ namespace NwsAlerts
             this.LocationName = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.richTextBoxAlert = new System.Windows.Forms.RichTextBox();
-            this.listViewZones = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.linkLabelExportWarning = new System.Windows.Forms.LinkLabel();
             this.listViewAlerts = new System.Windows.Forms.ListView();
             this.columnHeaderAlert = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -80,6 +76,7 @@ namespace NwsAlerts
             this.columnHeaderCounties = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageListTiles = new System.Windows.Forms.ImageList(this.components);
             this.imageListSeverity = new System.Windows.Forms.ImageList(this.components);
+            this.treeViewZones = new Windows.Controls.TreeView();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).BeginInit();
@@ -315,7 +312,7 @@ namespace NwsAlerts
             "Cancel"});
             this.checkedListBoxMessageType.Location = new System.Drawing.Point(12, 60);
             this.checkedListBoxMessageType.Name = "checkedListBoxMessageType";
-            this.checkedListBoxMessageType.Size = new System.Drawing.Size(151, 94);
+            this.checkedListBoxMessageType.Size = new System.Drawing.Size(151, 58);
             this.checkedListBoxMessageType.TabIndex = 2;
             // 
             // checkedListBoxEvent
@@ -324,7 +321,7 @@ namespace NwsAlerts
             this.checkedListBoxEvent.FormattingEnabled = true;
             this.checkedListBoxEvent.Location = new System.Drawing.Point(181, 60);
             this.checkedListBoxEvent.Name = "checkedListBoxEvent";
-            this.checkedListBoxEvent.Size = new System.Drawing.Size(287, 256);
+            this.checkedListBoxEvent.Size = new System.Drawing.Size(287, 184);
             this.checkedListBoxEvent.TabIndex = 4;
             this.checkedListBoxEvent.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxEvent_ItemCheck);
             // 
@@ -347,15 +344,15 @@ namespace NwsAlerts
             "Moderate",
             "Severe",
             "Extreme"});
-            this.checkedListBoxSeverity.Location = new System.Drawing.Point(12, 186);
+            this.checkedListBoxSeverity.Location = new System.Drawing.Point(12, 147);
             this.checkedListBoxSeverity.Name = "checkedListBoxSeverity";
-            this.checkedListBoxSeverity.Size = new System.Drawing.Size(151, 130);
+            this.checkedListBoxSeverity.Size = new System.Drawing.Size(151, 94);
             this.checkedListBoxSeverity.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 168);
+            this.label3.Location = new System.Drawing.Point(12, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 15);
             this.label3.TabIndex = 6;
@@ -434,37 +431,6 @@ namespace NwsAlerts
             this.richTextBoxAlert.TabIndex = 18;
             this.richTextBoxAlert.Text = "";
             // 
-            // listViewZones
-            // 
-            this.listViewZones.CheckBoxes = true;
-            this.listViewZones.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.listViewZones.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listViewZones.HideSelection = false;
-            this.listViewZones.Location = new System.Drawing.Point(12, 355);
-            this.listViewZones.Name = "listViewZones";
-            this.listViewZones.Size = new System.Drawing.Size(456, 163);
-            this.listViewZones.TabIndex = 21;
-            this.listViewZones.UseCompatibleStateImageBehavior = false;
-            this.listViewZones.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Zone";
-            this.columnHeader1.Width = 74;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "County";
-            this.columnHeader2.Width = 200;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "State";
-            this.columnHeader3.Width = 57;
-            // 
             // linkLabelExportWarning
             // 
             this.linkLabelExportWarning.AutoSize = true;
@@ -486,11 +452,11 @@ namespace NwsAlerts
             this.listViewAlerts.HideSelection = false;
             this.listViewAlerts.LabelEdit = true;
             this.listViewAlerts.LargeImageList = this.imageListTiles;
-            this.listViewAlerts.Location = new System.Drawing.Point(12, 524);
+            this.listViewAlerts.Location = new System.Drawing.Point(12, 481);
             this.listViewAlerts.MultiSelect = false;
             this.listViewAlerts.Name = "listViewAlerts";
             this.listViewAlerts.ShowItemToolTips = true;
-            this.listViewAlerts.Size = new System.Drawing.Size(456, 241);
+            this.listViewAlerts.Size = new System.Drawing.Size(456, 284);
             this.listViewAlerts.TabIndex = 23;
             this.listViewAlerts.TileSize = new System.Drawing.Size(440, 50);
             this.listViewAlerts.UseCompatibleStateImageBehavior = false;
@@ -564,15 +530,25 @@ namespace NwsAlerts
             this.imageListSeverity.Images.SetKeyName(4, "Extreme");
             this.imageListSeverity.Images.SetKeyName(5, "Emergency.png");
             // 
+            // treeViewZones
+            // 
+            this.treeViewZones.CheckBoxes = true;
+            this.treeViewZones.Location = new System.Drawing.Point(12, 266);
+            this.treeViewZones.Name = "treeViewZones";
+            this.treeViewZones.ShowLines = false;
+            this.treeViewZones.Size = new System.Drawing.Size(456, 209);
+            this.treeViewZones.TabIndex = 24;
+            this.treeViewZones.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewZones_AfterCheck);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1038, 802);
+            this.Controls.Add(this.treeViewZones);
             this.Controls.Add(this.listViewAlerts);
             this.Controls.Add(this.linkLabelExportWarning);
-            this.Controls.Add(this.listViewZones);
             this.Controls.Add(this.richTextBoxAlert);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dataGridViewEvents);
@@ -631,10 +607,6 @@ namespace NwsAlerts
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox richTextBoxAlert;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelAlerts;
-        private System.Windows.Forms.ListView listViewZones;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripButton toolStripButtonCrawl;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
@@ -654,6 +626,7 @@ namespace NwsAlerts
         private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
         private System.Windows.Forms.DataGridViewComboBoxColumn Group;
         private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
+        private Windows.Controls.TreeView treeViewZones;
     }
 }
 
