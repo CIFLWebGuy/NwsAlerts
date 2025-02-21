@@ -1,0 +1,5 @@
+This application pulls weather alert data from the NWS web API and displays them. The application allows the user to pull data for specific NWS offices and allows the filtering of specific alerts to display. The alerts can be assigned groups, and the groups are assigned a priority where the higher priority alerts are displayed on top.
+
+This application can also export the alert information which can be consumed by other applications to create other media. Since I created this to automate my alert feed or while streaming, it creates several text files that are used by OBS to create an image that contains the alert information and composed with a map or radar image.
+
+The application uses an API layer to access the NWS feed. This library can be used in other projects to pull the data as needed. The API library is included in this repo.
