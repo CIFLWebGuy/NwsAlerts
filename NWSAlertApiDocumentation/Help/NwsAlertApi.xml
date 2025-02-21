@@ -671,13 +671,8 @@
     </member>
     <member name="T:NwsAlertApi.NwsZoneType">
       <summary>
-        <markup>
-          <include item="SMCMissingTag">
-            <parameter>summary</parameter>
-            <parameter>T:NwsAlertApi.NwsZoneType</parameter>
-          </include>
-        </markup>
-      </summary>
+            Defines the NWS zone types.
+            </summary>
     </member>
     <member name="T:NwsAlertApi.ObservationStation">
       <summary>

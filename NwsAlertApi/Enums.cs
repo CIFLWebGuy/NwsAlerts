@@ -99,6 +99,9 @@ namespace NwsAlertApi
         Observed = 0x10
     }
 
+    /// <summary>
+    /// Defines the NWS zone types.
+    /// </summary>
     public enum NwsZoneType
     {
         Land,
