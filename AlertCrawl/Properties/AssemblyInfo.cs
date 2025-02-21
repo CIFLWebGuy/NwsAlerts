@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("VBW Software")]
 [assembly: AssemblyProduct("AlertCrawl")]
-[assembly: AssemblyCopyright("Copyright © VBW Software 2021")]
+[assembly: AssemblyCopyright("Copyright © VBW Software 2021-2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
