@@ -1,0 +1,835 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>NwsAlertApi</name>
+  </assembly>
+  <members>
+    <member name="T:NwsAlertApi.Address">
+      <summary>
+            Defines an address.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.Address.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.Address</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.Address.AddressLocality">
+      <summary>
+            Gets/sets the locality (city).
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Address.AddressRegion">
+      <summary>
+            Gets/sets the region (state/territory).
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Address.postalCode">
+      <summary>
+            Gets/sets the postal code
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Address.StreetAddress">
+      <summary>
+            Gets/sets the street address.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.Alert">
+      <summary>
+            Defines the properties for an NWS Alert
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.Alert.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.Alert</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.AffectedZones">
+      <summary>
+            Gets/sets the list of URL for the affected zones.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.AreaDesc">
+      <summary>
+            Gets/sets the county names affected by the alert.
+            </summary>
+      <remarks>
+            This property contains the names of the counties affected by the alert delimited by a semicolin.
+            </remarks>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Category">
+      <summary>
+            Gets/sets the category of the alert.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Certainty">
+      <summary>
+            Gets/sets the certainty of the event
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Description">
+      <summary>
+            Gets/sets the alert text.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Effective">
+      <summary>
+            Gets/sets when the alert goes into effect.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Ends">
+      <summary>
+            Gets/sets the expected end time of the subject event of the alert message.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Event">
+      <summary>
+            Gets/sets the type of the event.
+            </summary>
+      <remarks>This will be one of the event types returned by <see>ApiClient.GetEventTypes()</see></remarks>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Expires">
+      <summary>
+            Gets/sets when the alert will expire.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.GeoCode">
+      <summary>
+            Gets/sets the geocode data.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Headline">
+      <summary>
+            Gets/sets the alert headline.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.ID">
+      <summary>
+            Gets/sets the ID of the alert
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Instruction">
+      <summary>
+            Gets/sets additional instructions.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.LDID">
+      <summary>
+            Gets/sets the LD ID of the alert
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Level">
+      <summary>
+            Gets/sets the alert level.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.MessageType">
+      <summary>
+            Gets/sets the message type.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Onset">
+      <summary>
+            Gets/sets when the onset of the alert will occur.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Parameters">
+      <summary>
+            Gets/sets the alert parameters.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.References">
+      <summary>
+            Gets/sets the references
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Response">
+      <summary>
+            Gets/sets the requested response.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Sender">
+      <summary>
+            Gets/sets the email of the sender.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.SenderName">
+      <summary>
+            Gets/sets the name of the sender.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Sent">
+      <summary>
+            Gets/sets when the alert was sent.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Severity">
+      <summary>
+            Gets/sets the severity of the alert
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Status">
+      <summary>
+            Gets/sets the status of the alert.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Type">
+      <summary>
+            Gets/sets the alert type
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Alert.Urgency">
+      <summary>
+            Gets/sets the urgency of the alert.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.AlertFilters">
+      <summary>
+            Defines properties used to filter query results.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.AlertFilters.#ctor">
+      <summary>
+            Initalizes an instance of an AlertFilters object.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Active">
+      <summary>
+            Gets/sets a flag that determines whether to retrieve only active alerts.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Area">
+      <summary>
+            Gets the geographic area to search.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Certainty">
+      <summary>
+            Gets/sets the certianty of the event.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Codes">
+      <summary>
+            Gets the list of codes to retrieve.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.End">
+      <summary>
+            Gets/sets the ending time.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Events">
+      <summary>
+            Gets the list of events to retrieve.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Limit">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>P:NwsAlertApi.AlertFilters.Limit</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.MessageTypes">
+      <summary>
+            Gets/sets the message types to query
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.PageNo">
+      <summary>
+            Gets/sets the page number.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Severity">
+      <summary>
+            Gets/sets the severity of the alert.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Start">
+      <summary>
+            Gets/sets the start time.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Status">
+      <summary>
+            Gets/sets the alert statues to query for.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertFilters.Urgency">
+      <summary>
+            Gets/sets the urgency of the alert.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.AlertLevel">
+      <summary>
+            Defines the alert levels
+            </summary>
+    </member>
+    <member name="F:NwsAlertApi.AlertLevel.Normal">
+      <summary>
+            The alert is a normal alert
+            </summary>
+    </member>
+    <member name="F:NwsAlertApi.AlertLevel.PDS">
+      <summary>
+            Alert is tagged as a PDS
+            </summary>
+    </member>
+    <member name="F:NwsAlertApi.AlertLevel.TornadoEmergency">
+      <summary>
+            Alert is a Tornado Emergency
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.AlertParameters">
+      <summary>
+            Defines the parameters for an alert.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.AlertParameters.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.AlertParameters</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:NwsAlertApi.AlertReference">
+      <summary>
+            Defines an alert reference.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.AlertReference.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.AlertReference</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertReference.ID">
+      <summary>
+            Gets/sets the ID of the alert.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertReference.LDID">
+      <summary>
+            Gets/sets the LD ID for the alert.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertReference.Sender">
+      <summary>
+            Gets/sets the emali of the sender.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertReference.Sent">
+      <summary>
+            Gets/sets when the alert was sent.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.AlertResponse">
+      <summary>
+             Defines the response for the <c>/Alert</c> endpoint.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.AlertResponse.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.AlertResponse</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertResponse.Alerts">
+      <summary>
+            Gets/sets the alert data.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertResponse.context">
+      <summary>
+            Gets/sets the api context.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertResponse.Title">
+      <summary>
+            Gets/sets the response title.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.AlertResponse.Updated">
+      <summary>
+            Gets/sets when the data was updated.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.AlertStatuses">
+      <summary>
+            Defines alert status flags
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.ApiClient">
+      <summary>
+            Defines the properties and methods used to access the NWS Alert API.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.#ctor(System.String,System.String)">
+      <summary>
+            Initalizes an instance of the ApiClient class with the specified User-Agent string.
+            </summary>
+      <param name="endpoint">The API endpoint URL.</param>
+      <param name="userAgent">The User-Agent string use to authenticate the API</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="endpoint" /> or <paramref name="userAgent" /> are null or empty.</exception>
+    </member>
+    <member name="P:NwsAlertApi.ApiClient.Endpoint">
+      <summary>
+            Gets the API endpoint.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetAlerts(NwsAlertApi.AlertFilters)">
+      <summary>
+            Returns the alerts specified by the <paramref name="filter" /> parameter.
+            </summary>
+      <param name="filter">The parameters used to specify the alerts to retrieve.</param>
+      <returns>List of <see cref="T:NwsAlertApi.Alert" /> objects that contain the alerts specified. </returns>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="filter" /> parameter is null.</exception>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetEventTypes">
+      <summary>
+            Gets the list of event types used by the NWS.
+            </summary>
+      <returns>A list of strings that contains the event types.</returns>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetOffice(System.String)">
+      <summary>
+            Gets information about the specified office.
+            </summary>
+      <param name="officeID"></param>
+      <returns>An <see cref="T:NwsAlertApi.NwsOffice" /> object that contains the office information.</returns>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetStates">
+      <summary>
+            Gets the list of available state and territory codes.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:NwsAlertApi.ApiClient.GetStates</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetZones(NwsAlertApi.GeographicArea,System.Boolean)">
+      <summary>
+            Gets the zones for the specified area.
+            </summary>
+      <param name="area">The geographic area </param>
+      <param name="includeGeo">Determines if geographic data is returned back.</param>
+      <returns>A list of <see cref="T:NwsAlertApi.Zone" /> objects that contains the zones in the specified area.</returns>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetZones(NwsAlertApi.GeographicArea,System.Boolean,System.DateTime)">
+      <summary>
+            Gets the zones for the specified area.
+            </summary>
+      <param name="area">The geographic area </param>
+      <param name="includeGeo">Determines if geographic data is returned back.</param>
+      <param name="effective">The effective date of the zones.</param>
+      <returns>A list of <see cref="T:NwsAlertApi.Zone" /> objects that contains the zones in the specified area.</returns>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetZones(NwsAlertApi.GeographicArea,System.Boolean,System.DateTime,System.Int32)">
+      <summary>
+            Gets the zones for the specified area.
+            </summary>
+      <param name="area">The geographic area </param>
+      <param name="includeGeo">Determines if geographic data is returned back.</param>
+      <param name="effective">The effective date of the zones.</param>
+      <param name="limit">The maximum nuber of zones to retrieve.</param>
+      <returns>A list of <see cref="T:NwsAlertApi.Zone" /> objects that contains the zones in the specified area.</returns>
+    </member>
+    <member name="M:NwsAlertApi.ApiClient.GetZones(NwsAlertApi.GeographicArea,System.Boolean,System.Int32)">
+      <summary>
+            Gets the zones for the specified area.
+            </summary>
+      <param name="area">The geographic area </param>
+      <param name="includeGeo">Determines if geographic data is returned back.</param>
+      <param name="limit">The maximum nuber of zones to retrieve.</param>
+      <returns>A list of <see cref="T:NwsAlertApi.Zone" /> objects that contains the zones in the specified area.</returns>
+    </member>
+    <member name="P:NwsAlertApi.ApiClient.UserAgent">
+      <summary>
+            Gets the user agent identifier.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.Certainties">
+      <summary>
+            Defines the certainty of the event.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.GeoCode">
+      <summary>
+            Contains SAME and UGC lists
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.GeoCode.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.GeoCode</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeoCode.SAME">
+      <summary>
+            Gets/sets the list of SAME codes
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeoCode.UGC">
+      <summary>
+            Gets/sets the list of UGC codes
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.GeographicArea">
+      <summary>
+            Defines the properties used to define a geographic area in API calls.
+            </summary>
+      <remarks>This class is used by API calls where a geographic area can be specified. These properties are mutually exclusive; setting one will clear the others. </remarks>
+    </member>
+    <member name="M:NwsAlertApi.GeographicArea.#ctor">
+      <summary>
+            Initalizes an instance of an GeographicArea object.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeographicArea.Point">
+      <summary>
+            Gets/sets the geographic point to use.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeographicArea.Region">
+      <summary>
+            Gets/sets the marine region.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeographicArea.RegionType">
+      <summary>
+            Gets/sets the region type.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeographicArea.StateCodes">
+      <summary>
+            Gets the list of states codes used to define the area.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.GeographicArea.Zones">
+      <summary>
+            Gets the list of zone IDs.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.LdContext">
+      <summary>
+            Defines the LD context
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.LdContext.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.LdContext</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.LdContext.Version">
+      <summary>
+            Gets/sets the version number
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.LdContext.Vocab">
+      <summary>
+            Gets/sets the vocab URI
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.LdContext.WX">
+      <summary>
+            Gets/sets the WX ID
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.MessageTypes">
+      <summary>
+            Defines message type flags
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.NwsOffice">
+      <summary>
+            Defines the properties for an NWS office.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.NwsOffice.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.NwsOffice</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.Address">
+      <summary>
+            Gets/sets the address.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.ApprovedObservationStations">
+      <summary>
+            Gets/sets the approved observation stations assigned to the office.
+            </summary>
+      <remarks>This is an array of LD IDs.</remarks>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.Context">
+      <summary>
+            Gets/sets the LD Context
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.Email">
+      <summary>
+            Gets/sets the email address of the office.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.Fax">
+      <summary>
+            Gets/sets the fax number.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.LDID">
+      <summary>
+            Gets/sets the LD ID.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.LdTypeName">
+      <summary>
+            Gets/sets the LD type name.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.Name">
+      <summary>
+            Gets/sets the name of the office.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.NwsRegion">
+      <summary>
+            Gets/sets the NWS region the office has been assigned to.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.OfficeID">
+      <summary>
+            Get/sets the office ID.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.ParentOrginization">
+      <summary>
+            Gets/sets the URL of the parent orginization.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.ResponsibleCounties">
+      <summary>
+            Gets/sets the counties the office is responsible for.
+            </summary>
+      <remarks>This is an array of LD IDs.</remarks>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.ResponsibleFireZones">
+      <summary>
+            Gets/sets the fire zones the office is responsible for.
+            </summary>
+      <remarks>This is an array of LD IDs</remarks>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.ResponsibleForecastZones">
+      <summary>
+            Gets/sets the forecast zones the office is responsible for,
+            </summary>
+      <remarks>This is an array of LD IDs.</remarks>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.SameAs">
+      <summary>
+            Gets/sets the URL for the office.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.NwsOffice.Telephone">
+      <summary>
+            Gets/sets the telephone number.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.NwsZoneType">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:NwsAlertApi.NwsZoneType</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:NwsAlertApi.ObservationStation">
+      <summary>
+            Defines the properties of an observation station.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.ObservationStation.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.ObservationStation</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.ObservationStation.Index">
+      <summary>
+            Gets/sets the Index of the station.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.ObservationStation.Url">
+      <summary>
+            Gets/sets the URL of the station.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.Regions">
+      <summary>
+            Defines the marine regions.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.RegionType">
+      <summary>
+            Defines the region types.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.Severities">
+      <summary>
+            Defines the severity of the alert.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.Urgencies">
+      <summary>
+            Defines the the urgency of the alert.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.Zone">
+      <summary>
+            Defines the properties of a NWS zone.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.Zone.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.Zone</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.Cwa">
+      <summary>
+            Gets/sets the three-letter identifer for a NWS office.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.EffectiveDate">
+      <summary>
+            Gets/sets the effective date.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.ExpirationDate">
+      <summary>
+            Gets/sets the expiration date.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.ForecastOffices">
+      <summary>
+            Gets/sets the URLs of the forecast offices
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.GeometryWkt">
+      <summary>
+            A geometry represented in Well-Known Text (WKT) format.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.ID">
+      <summary>
+            UGC identifier for a NWS forecast zone or county.
+            </summary>
+      <remarks>
+        <para>The first two letters will correspond to either a state code or marine area code 
+            (see #/components/schemas/StateTerritoryCode and #/components/schemas/MarineAreaCode for lists of valid letter combinations).</para>
+        <para>The third letter will be Z for public/fire zone or C for county.</para>
+      </remarks>
+    </member>
+    <member name="P:NwsAlertApi.Zone.LDID">
+      <summary>
+            Gets/sets the LD ID
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.LdTypeName">
+      <summary>
+            Gets/sets the LD type name
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.Name">
+      <summary>
+            Gets/sets the name of the zone.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.NwsZoneType">
+      <summary>
+            Gets the NWS zone type.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.RadarStation">
+      <summary>
+            Gets/sets the radar station ID.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.State">
+      <summary>
+            Gets/sets the state code for the zone.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.Zone.TimeZone">
+      <summary>
+            Gets/sets the timezone IDs.
+            </summary>
+    </member>
+    <member name="T:NwsAlertApi.ZoneResponse">
+      <summary>
+            Defines the response for the <c>/Zone</c> endpoint.
+            </summary>
+    </member>
+    <member name="M:NwsAlertApi.ZoneResponse.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>NwsAlertApi.ZoneResponse</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:NwsAlertApi.ZoneResponse.Context">
+      <summary>
+            Gets/sets the API context.
+            </summary>
+    </member>
+    <member name="P:NwsAlertApi.ZoneResponse.Zones">
+      <summary>
+            Gets/sets the list of zones.
+            </summary>
+    </member>
+  </members>
+</doc>
