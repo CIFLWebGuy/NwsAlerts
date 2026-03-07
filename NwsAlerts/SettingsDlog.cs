@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NwsAlerts.SettingsPages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,9 @@ namespace NwsAlerts
     public partial class SettingsDlog : Form
     {
         private IconSettingsPage imagePage;
+        private ApiSettingsPage apiSettingsPage;
+        private HttpSettingsPage httpSettingsPage;
+        private GroupSettingsPage groupSettingsPage;
         private UserControl activePage;
 
         /// <summary>
@@ -79,6 +83,10 @@ namespace NwsAlerts
                     }
 
                     activePage = imagePage;
+                    break;
+
+                case "General":
+                case "API Settings":
                     break;
             }
 

@@ -194,6 +194,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="alert.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Alerts.xml" />
     <None Include="Resources\Disconnect_16x.png" />
     <None Include="Resources\Connect_16x.png" />

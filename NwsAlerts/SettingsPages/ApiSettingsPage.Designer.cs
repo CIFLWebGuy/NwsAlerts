@@ -55,6 +55,7 @@
             this.textBoxEndpoint.Name = "textBoxEndpoint";
             this.textBoxEndpoint.Size = new System.Drawing.Size(412, 23);
             this.textBoxEndpoint.TabIndex = 1;
+            this.textBoxEndpoint.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxEndpoint_Validating);
             // 
             // label2
             // 
@@ -73,6 +74,7 @@
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(412, 23);
             this.textBoxEmail.TabIndex = 3;
+            this.textBoxEmail.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxEmail_Validating);
             // 
             // label3
             // 
@@ -129,6 +131,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "ApiSettingsPage";
             this.Size = new System.Drawing.Size(445, 321);
+            this.Load += new System.EventHandler(this.ApiSettingsPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.upDownRefresh)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

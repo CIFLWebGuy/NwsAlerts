@@ -53,6 +53,7 @@
             // 
             // buttonBrowse
             // 
+            this.buttonBrowse.CausesValidation = false;
             this.buttonBrowse.Location = new System.Drawing.Point(353, 30);
             this.buttonBrowse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonBrowse.Name = "buttonBrowse";

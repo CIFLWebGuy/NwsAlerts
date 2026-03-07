@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Media;
 
 namespace NwsAlerts
 {
@@ -34,6 +35,8 @@ namespace NwsAlerts
         private NamedPipeClientStream crawlPipe;
         private SplashForm splashDlog;
         private string crawlMessage;
+        private List<string> alertIDCache;
+        private SoundPlayer alertPlayer;
 
         public FormMain()
         {
@@ -52,6 +55,11 @@ namespace NwsAlerts
             api = new ApiClient(apiEndpoint, userAgent);
             crawlMessage = "";
             propertyWindow = new PropertyForm();
+
+            alertIDCache = new List<string>();
+            
+            alertPlayer = new SoundPlayer("alert.wav");
+            alertPlayer.Load();
         }
 
         private void LoadConfiguration()
@@ -228,7 +236,9 @@ namespace NwsAlerts
         private void PopulateAlertList()
         {
             ListViewItem selectedItem = null;
-            
+            bool playSound = false;
+            bool isNew;
+
             if(listViewAlerts.SelectedItems.Count != 0)
                 selectedItem = listViewAlerts.SelectedItems[0];
 
@@ -237,6 +247,8 @@ namespace NwsAlerts
             foreach(Alert alert in activeAlerts)
             {
                 AlertEvent alertEvent = selectedEvents.Where(e => e.Name == alert.Event).FirstOrDefault();
+
+                isNew = alertIDCache.Contains(alert.ID);
 
                 ListViewItem item = new ListViewItem();
                 item.Text = alert.Event;
@@ -264,12 +276,18 @@ namespace NwsAlerts
                     alert.Level = AlertLevel.TornadoEmergency;
                     item.Text = "*** TORNADO EMERGENCY ***";
                     item.ImageKey = "Tornado Emergency";
+
+                    if (isNew)
+                        playSound = true;
                 }
                 else if (description.Contains("PARTICULARLY DANGEROUS SITUATION") || instruction.Contains("PARTICULARLY DANGEROUS SITUATION"))
                 {
                     alert.Level = AlertLevel.PDS;
                     item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
                     item.SubItems[0].ForeColor = Color.DarkRed;
+
+                    if(isNew)
+                        playSound = true;
 
                     switch(alert.Event.ToUpper())
                     {
@@ -293,8 +311,21 @@ namespace NwsAlerts
 
                 listViewAlerts.Items.Add(item);
 
-                if(selectedItem != null && item.Tag == selectedItem.Tag)
+                if (isNew)
+                    alertIDCache.Add(alert.ID);
+
+                if(playSound)
+                {
+                    alertPlayer.Play();
+                }
+
+                if(selectedItem != null && item.Tag.ToString() == selectedItem.Tag.ToString())
                     item.Selected = true;
+            }
+
+            if (listViewAlerts.Items.Count == 0)
+            {
+                richTextBoxAlert.Text = "";
             }
         }
 
@@ -308,7 +339,7 @@ namespace NwsAlerts
             foreach (AlertEvent alertEvent in selectedEvents)
             {
                 var alerts = activeAlerts.Where(e => e.Event == alertEvent.Name);
-                
+
                 foreach (var alert in alerts)
                 {
                     if (alertEvent.DisplayLocation == DisplayLocation.Main)
@@ -579,6 +610,7 @@ namespace NwsAlerts
                 InitalizeApplication(splashDlog);
 
                 splashDlog.Close();
+            toolStripComboBoxOutlookDay.SelectedIndex = 0;
         }
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
@@ -849,6 +881,13 @@ namespace NwsAlerts
             {
                 node.Checked = e.Node.Checked;
             }
+        }
+
+        private void toolStripComboBoxOutlookDay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime day = DateTime.Now.AddDays(toolStripComboBoxOutlookDay.SelectedIndex);
+
+            File.WriteAllText(Path.Combine(Properties.Settings.Default.OutputFolder, "Outlook Day.txt"), day.DayOfWeek.ToString());
         }
     }
 }

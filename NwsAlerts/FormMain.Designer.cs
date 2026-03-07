@@ -53,6 +53,9 @@ namespace NwsAlerts
             this.resetAndSendToCrawlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBoxOutlookDay = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -160,6 +163,9 @@ namespace NwsAlerts
             this.toolStripLabel2,
             this.toolStripTextBoxCrawl,
             this.toolStripButtonSendCrawl,
+            this.toolStripSeparator5,
+            this.toolStripLabel3,
+            this.toolStripComboBoxOutlookDay,
             this.toolStripSeparator3,
             this.toolStripButtonSettings});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -234,7 +240,7 @@ namespace NwsAlerts
             // 
             this.toolStripTextBoxCrawl.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxCrawl.Name = "toolStripTextBoxCrawl";
-            this.toolStripTextBoxCrawl.Size = new System.Drawing.Size(600, 25);
+            this.toolStripTextBoxCrawl.Size = new System.Drawing.Size(450, 25);
             // 
             // toolStripButtonSendCrawl
             // 
@@ -277,6 +283,28 @@ namespace NwsAlerts
             this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.resetToDefaultToolStripMenuItem.Text = "Reset to default";
             this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.resetToDefaultToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel3.Text = "SPC Outlook:";
+            // 
+            // toolStripComboBoxOutlookDay
+            // 
+            this.toolStripComboBoxOutlookDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxOutlookDay.Items.AddRange(new object[] {
+            "Day 1",
+            "Day 2",
+            "Day 3"});
+            this.toolStripComboBoxOutlookDay.Name = "toolStripComboBoxOutlookDay";
+            this.toolStripComboBoxOutlookDay.Size = new System.Drawing.Size(75, 25);
+            this.toolStripComboBoxOutlookDay.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxOutlookDay_SelectedIndexChanged);
             // 
             // toolStripSeparator3
             // 
@@ -449,8 +477,8 @@ namespace NwsAlerts
             this.columnHeaderExpires,
             this.columnHeaderCounties});
             this.listViewAlerts.Cursor = System.Windows.Forms.Cursors.Default;
+            this.listViewAlerts.FullRowSelect = true;
             this.listViewAlerts.HideSelection = false;
-            this.listViewAlerts.LabelEdit = true;
             this.listViewAlerts.LargeImageList = this.imageListTiles;
             this.listViewAlerts.Location = new System.Drawing.Point(12, 481);
             this.listViewAlerts.MultiSelect = false;
@@ -627,6 +655,9 @@ namespace NwsAlerts
         private System.Windows.Forms.DataGridViewComboBoxColumn Group;
         private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
         private Windows.Controls.TreeView treeViewZones;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxOutlookDay;
     }
 }
 

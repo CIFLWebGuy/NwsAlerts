@@ -1,0 +1,181 @@
+{
+    "@context": [
+        "https://geojson.org/geojson-ld/geojson-context.jsonld",
+        {
+            "@version": "1.1",
+            "wx": "https://api.weather.gov/ontology#",
+            "@vocab": "https://api.weather.gov/ontology#"
+        }
+    ],
+    "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.34e6c082c090dca2a3352926144eca1aa7cd9109.002.1",
+    "type": "Feature",
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+            [
+                [
+                    -94.06,
+                    36.94
+                ],
+                [
+                    -94.05,
+                    37.05
+                ],
+                [
+                    -94.03,
+                    37.11
+                ],
+                [
+                    -94.04,
+                    37.3
+                ],
+                [
+                    -93.8,
+                    37.49
+                ],
+                [
+                    -93.72,
+                    37.58
+                ],
+                [
+                    -93.62,
+                    37.57
+                ],
+                [
+                    -93.39,
+                    37.72
+                ],
+                [
+                    -93.18,
+                    37.49
+                ],
+                [
+                    -93.19,
+                    37.43
+                ],
+                [
+                    -93.61,
+                    37.09
+                ],
+                [
+                    -93.77,
+                    37.02
+                ],
+                [
+                    -94.06,
+                    36.94
+                ]
+            ]
+        ]
+    },
+    "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.34e6c082c090dca2a3352926144eca1aa7cd9109.002.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.34e6c082c090dca2a3352926144eca1aa7cd9109.002.1",
+        "areaDesc": "Dade, MO; Greene, MO; Lawrence, MO; Polk, MO",
+        "geocode": {
+            "SAME": [
+                "029057",
+                "029077",
+                "029109",
+                "029167"
+            ],
+            "UGC": [
+                "MOC057",
+                "MOC077",
+                "MOC109",
+                "MOC167"
+            ]
+        },
+        "affectedZones": [
+            "https://api.weather.gov/zones/county/MOC057",
+            "https://api.weather.gov/zones/county/MOC077",
+            "https://api.weather.gov/zones/county/MOC109",
+            "https://api.weather.gov/zones/county/MOC167"
+        ],
+        "references": [
+            {
+                "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.081f497db0840ab1669df8952e054c59cecd1297.001.1",
+                "identifier": "urn:oid:2.49.0.1.840.0.081f497db0840ab1669df8952e054c59cecd1297.001.1",
+                "sender": "w-nws.webmaster@noaa.gov",
+                "sent": "2026-03-06T22:44:00-06:00"
+            }
+        ],
+        "sent": "2026-03-06T22:59:00-06:00",
+        "effective": "2026-03-06T22:59:00-06:00",
+        "onset": "2026-03-06T22:59:00-06:00",
+        "expires": "2026-03-06T23:30:00-06:00",
+        "ends": "2026-03-06T23:30:00-06:00",
+        "status": "Actual",
+        "messageType": "Update",
+        "category": "Met",
+        "severity": "Severe",
+        "certainty": "Observed",
+        "urgency": "Immediate",
+        "event": "Severe Thunderstorm Warning",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Springfield MO",
+        "headline": "Severe Thunderstorm Warning issued March 6 at 10:59PM CST until March 6 at 11:30PM CST by NWS Springfield MO",
+        "description": "At 1059 PM CST, severe thunderstorms were located along a line\nextending from near Greenfield to near Everton to Monett, moving\nnortheast at 70 mph.\n\nHAZARD...70 mph wind gusts.\n\nSOURCE...Radar indicated.\n\nIMPACT...Expect considerable tree damage. Damage is likely to mobile\nhomes, roofs, and outbuildings.\n\nLocations impacted include...\nBolivar, Stockton Lake, Willard, Mount Vernon, Ash Grove, Greenfield,\nPierce City, Miller, Walnut Grove, Pleasant Hope, Morrisville,\nEverton, Dadeville, Stotts City, Halltown, Freistatt, South\nGreenfield, Aldrich, Hoberg, and Chesapeake.\n\nThis includes Interstate 44 between mile markers 34 and 65.",
+        "instruction": "A Tornado Watch remains in effect until 100 AM CST for southwestern\nMissouri.\n\nFor your protection move to an interior room on the lowest floor of a\nbuilding.",
+        "response": "Shelter",
+        "parameters": {
+            "AWIPSidentifier": [
+                "SVSSGF"
+            ],
+            "WMOidentifier": [
+                "WWUS53 KSGF 070459"
+            ],
+            "NWSheadline": [
+                "A SEVERE THUNDERSTORM WARNING REMAINS IN EFFECT UNTIL 1130 PM CST FOR SOUTHERN POLK...LAWRENCE...WESTERN GREENE AND EASTERN DADE COUNTIES"
+            ],
+            "eventMotionDescription": [
+                "2026-03-07T04:59:00-00:00...storm...219DEG...60KT...37.46,-93.75 37.28,-93.75 36.92,-93.96"
+            ],
+            "windThreat": [
+                "RADAR INDICATED"
+            ],
+            "maxWindGust": [
+                "70 MPH"
+            ],
+            "hailThreat": [
+                "RADAR INDICATED"
+            ],
+            "maxHailSize": [
+                "Up to .75"
+            ],
+            "thunderstormDamageThreat": [
+                "CONSIDERABLE"
+            ],
+            "tornadoDetection": [
+                "POSSIBLE"
+            ],
+            "BLOCKCHANNEL": [
+                "EAS",
+                "NWEM",
+                "CMAS"
+            ],
+            "EAS-ORG": [
+                "WXR"
+            ],
+            "VTEC": [
+                "/O.CON.KSGF.SV.W.0027.000000T0000Z-260307T0530Z/"
+            ],
+            "eventEndingTime": [
+                "2026-03-06T23:30:00-06:00"
+            ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+            "SAME": [
+                "SVS"
+            ],
+            "NationalWeatherService": [
+                "SVW"
+            ]
+        }
+    }
+}

@@ -61,5 +61,28 @@ namespace NwsAlerts.SettingsPages
         {
             InitializeComponent();
         }
+
+        private void textBoxEndpoint_Validating(object sender, CancelEventArgs e)
+        {
+            if(string.IsNullOrEmpty(textBoxEndpoint.Text))
+            {
+                e.Cancel = true;
+                MessageBox.Show("Please enter the API endpoint.");
+            }
+        }
+
+        private void textBoxEmail_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxEmail.Text))
+            {
+                e.Cancel = true;
+                MessageBox.Show("Please enter an email address.");
+            }
+        }
+
+        private void ApiSettingsPage_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
