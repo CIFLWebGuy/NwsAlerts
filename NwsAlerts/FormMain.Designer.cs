@@ -412,7 +412,7 @@ namespace NwsAlerts
             this.dataGridViewEvents.Location = new System.Drawing.Point(487, 42);
             this.dataGridViewEvents.Name = "dataGridViewEvents";
             this.dataGridViewEvents.RowHeadersVisible = false;
-            this.dataGridViewEvents.Size = new System.Drawing.Size(539, 274);
+            this.dataGridViewEvents.Size = new System.Drawing.Size(539, 202);
             this.dataGridViewEvents.TabIndex = 13;
             this.dataGridViewEvents.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellEndEdit);
             // 
@@ -443,7 +443,7 @@ namespace NwsAlerts
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(484, 337);
+            this.label6.Location = new System.Drawing.Point(486, 266);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 15);
             this.label6.TabIndex = 17;
@@ -452,17 +452,17 @@ namespace NwsAlerts
             // richTextBoxAlert
             // 
             this.richTextBoxAlert.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxAlert.Location = new System.Drawing.Point(487, 355);
+            this.richTextBoxAlert.Location = new System.Drawing.Point(487, 284);
             this.richTextBoxAlert.Name = "richTextBoxAlert";
             this.richTextBoxAlert.ReadOnly = true;
-            this.richTextBoxAlert.Size = new System.Drawing.Size(539, 410);
+            this.richTextBoxAlert.Size = new System.Drawing.Size(539, 481);
             this.richTextBoxAlert.TabIndex = 18;
             this.richTextBoxAlert.Text = "";
             // 
             // linkLabelExportWarning
             // 
             this.linkLabelExportWarning.AutoSize = true;
-            this.linkLabelExportWarning.Location = new System.Drawing.Point(916, 337);
+            this.linkLabelExportWarning.Location = new System.Drawing.Point(918, 266);
             this.linkLabelExportWarning.Name = "linkLabelExportWarning";
             this.linkLabelExportWarning.Size = new System.Drawing.Size(108, 15);
             this.linkLabelExportWarning.TabIndex = 22;
@@ -480,11 +480,11 @@ namespace NwsAlerts
             this.listViewAlerts.FullRowSelect = true;
             this.listViewAlerts.HideSelection = false;
             this.listViewAlerts.LargeImageList = this.imageListTiles;
-            this.listViewAlerts.Location = new System.Drawing.Point(12, 481);
+            this.listViewAlerts.Location = new System.Drawing.Point(12, 378);
             this.listViewAlerts.MultiSelect = false;
             this.listViewAlerts.Name = "listViewAlerts";
             this.listViewAlerts.ShowItemToolTips = true;
-            this.listViewAlerts.Size = new System.Drawing.Size(456, 284);
+            this.listViewAlerts.Size = new System.Drawing.Size(456, 387);
             this.listViewAlerts.TabIndex = 23;
             this.listViewAlerts.TileSize = new System.Drawing.Size(440, 50);
             this.listViewAlerts.UseCompatibleStateImageBehavior = false;
@@ -561,10 +561,10 @@ namespace NwsAlerts
             // treeViewZones
             // 
             this.treeViewZones.CheckBoxes = true;
-            this.treeViewZones.Location = new System.Drawing.Point(12, 266);
+            this.treeViewZones.Location = new System.Drawing.Point(12, 250);
             this.treeViewZones.Name = "treeViewZones";
             this.treeViewZones.ShowLines = false;
-            this.treeViewZones.Size = new System.Drawing.Size(456, 209);
+            this.treeViewZones.Size = new System.Drawing.Size(456, 122);
             this.treeViewZones.TabIndex = 24;
             this.treeViewZones.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewZones_AfterCheck);
             // 

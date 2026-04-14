@@ -248,7 +248,7 @@ namespace NwsAlerts
             {
                 AlertEvent alertEvent = selectedEvents.Where(e => e.Name == alert.Event).FirstOrDefault();
 
-                isNew = alertIDCache.Contains(alert.ID);
+                isNew = !alertIDCache.Contains(alert.ID);
 
                 ListViewItem item = new ListViewItem();
                 item.Text = alert.Event;
