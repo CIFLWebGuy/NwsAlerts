@@ -239,12 +239,12 @@ namespace NwsAlerts
             bool playSound = false;
             bool isNew;
 
-            if(listViewAlerts.SelectedItems.Count != 0)
+            if (listViewAlerts.SelectedItems.Count != 0)
                 selectedItem = listViewAlerts.SelectedItems[0];
 
             listViewAlerts.Items.Clear();
 
-            foreach(Alert alert in activeAlerts)
+            foreach (Alert alert in activeAlerts.OrderByDescending(a => a.Expires))
             {
                 AlertEvent alertEvent = selectedEvents.Where(e => e.Name == alert.Event).FirstOrDefault();
 
@@ -286,10 +286,10 @@ namespace NwsAlerts
                     item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
                     item.SubItems[0].ForeColor = Color.DarkRed;
 
-                    if(isNew)
+                    if (isNew)
                         playSound = true;
 
-                    switch(alert.Event.ToUpper())
+                    switch (alert.Event.ToUpper())
                     {
                         case "TORNADO WATCH":
                             item.ImageKey = "Tornado Watch PDS";
@@ -314,12 +314,12 @@ namespace NwsAlerts
                 if (isNew)
                     alertIDCache.Add(alert.ID);
 
-                if(playSound)
+                if (playSound)
                 {
                     alertPlayer.Play();
                 }
 
-                if(selectedItem != null && item.Tag.ToString() == selectedItem.Tag.ToString())
+                if (selectedItem != null && item.Tag.ToString() == selectedItem.Tag.ToString())
                     item.Selected = true;
             }
 
