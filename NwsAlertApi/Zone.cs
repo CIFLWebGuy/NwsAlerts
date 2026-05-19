@@ -19,13 +19,13 @@ namespace NwsAlertApi
         public string GeometryWkt { get; set; }
         
         /// <summary>
-        /// Gets/sets the LD ID
+        /// Gets or sets the LD ID
         /// </summary>
         [JsonPropertyName("@id")]
         public string LDID { get; set; }
 
         /// <summary>
-        /// Gets/sets the LD type name
+        /// Gets or sets the LD type name
         /// </summary>
         [JsonPropertyName("@type")]
         public string LdTypeName { get; set; }
@@ -44,47 +44,47 @@ namespace NwsAlertApi
         public NwsZoneType NwsZoneType { get; set; }
 
         /// <summary>
-        /// Gets/sets the name of the zone.
+        /// Gets or sets the name of the zone.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets/sets the effective date.
+        /// Gets or sets the effective date.
         /// </summary>
         public DateTime EffectiveDate { get; set; }
 
         /// <summary>
-        /// Gets/sets the expiration date.
+        /// Gets or sets the expiration date.
         /// </summary>
         public DateTime ExpirationDate { get; set; }
 
         /// <summary>
-        /// Gets/sets the state code for the zone.
+        /// Gets or sets the state code for the zone.
         /// </summary>
         public string State { get; set; }
 
         /// <summary>
-        /// Gets/sets the three-letter identifer for a NWS office.
+        /// Gets or sets the three-letter identifer for a NWS office.
         /// </summary>
         public string[] Cwa { get; set; }
 
         /// <summary>
-        /// Gets/sets the URLs of the forecast offices
+        /// Gets or sets the URLs of the forecast offices
         /// </summary>
         public string[] ForecastOffices { get; set; }
 
         /// <summary>
-        /// Gets/sets the timezone IDs.
+        /// Gets or sets the timezone IDs.
         /// </summary>
         public string[] TimeZone { get; set; }
 
         /// <summary>
-        /// Gets/sets the observation stations URLs.
+        /// Gets or sets the observation stations URLs.
         /// </summary>
         //public string[] ObservationStations { get; set; }
 
         /// <summary>
-        /// Gets/sets the radar station ID.
+        /// Gets or sets the radar station ID.
         /// </summary>
         public string RadarStation { get; set; }
     }

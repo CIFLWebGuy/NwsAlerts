@@ -12,22 +12,22 @@ namespace NwsAlertApi
     public class Address
     {
         /// <summary>
-        /// Gets/sets the street address.
+        /// Gets or sets the street address.
         /// </summary>
         public string StreetAddress { get; set; }
 
         /// <summary>
-        /// Gets/sets the locality (city).
+        /// Gets or sets the locality (city).
         /// </summary>
         public string AddressLocality { get; set; }
 
         /// <summary>
-        /// Gets/sets the region (state/territory).
+        /// Gets or sets the region (state/territory).
         /// </summary>
         public string AddressRegion { get; set; }
 
         /// <summary>
-        /// Gets/sets the postal code
+        /// Gets or sets the postal code
         /// </summary>
         public string postalCode { get; set; }
     }

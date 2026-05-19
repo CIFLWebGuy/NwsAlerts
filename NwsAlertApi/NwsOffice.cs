@@ -13,19 +13,19 @@ namespace NwsAlertApi
     public class NwsOffice
     {
         /// <summary>
-        /// Gets/sets the LD Context
+        /// Gets or sets the LD Context
         /// </summary>
         [JsonPropertyName("@context")]
         public LdContext Context { get; set; }
         
         /// <summary>
-        /// Gets/sets the LD type name.
+        /// Gets or sets the LD type name.
         /// </summary>
         [JsonPropertyName("@type")]
         public string LdTypeName { get; set; }
 
         /// <summary>
-        /// Gets/sets the LD ID.
+        /// Gets or sets the LD ID.
         /// </summary>
         [JsonPropertyName("@id")]
         public string LDID { get; set; }
@@ -37,65 +37,65 @@ namespace NwsAlertApi
         public string OfficeID { get; set; }
 
         /// <summary>
-        /// Gets/sets the name of the office.
+        /// Gets or sets the name of the office.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets/sets the address.
+        /// Gets or sets the address.
         /// </summary>
         public Address Address { get; set; }
 
         /// <summary>
-        /// Gets/sets the telephone number.
+        /// Gets or sets the telephone number.
         /// </summary>
         public string Telephone { get; set; }
 
         /// <summary>
-        /// Gets/sets the fax number.
+        /// Gets or sets the fax number.
         /// </summary>
         public string Fax { get; set; }
 
         /// <summary>
-        /// Gets/sets the email address of the office.
+        /// Gets or sets the email address of the office.
         /// </summary>
         public string Email { get; set; }
 
         /// <summary>
-        /// Gets/sets the URL for the office.
+        /// Gets or sets the URL for the office.
         /// </summary>
         public string SameAs { get; set; }
 
         /// <summary>
-        /// Gets/sets the NWS region the office has been assigned to.
+        /// Gets or sets the NWS region the office has been assigned to.
         /// </summary>
         public string NwsRegion { get; set; }
 
         /// <summary>
-        /// Gets/sets the URL of the parent orginization.
+        /// Gets or sets the URL of the parent orginization.
         /// </summary>
         public string ParentOrginization { get; set; }
 
         /// <summary>
-        /// Gets/sets the counties the office is responsible for.
+        /// Gets or sets the counties the office is responsible for.
         /// </summary>
         /// <remarks>This is an array of LD IDs.</remarks>
         public string[] ResponsibleCounties { get; set; }
 
         /// <summary>
-        /// Gets/sets the forecast zones the office is responsible for,
+        /// Gets or sets the forecast zones the office is responsible for,
         /// </summary>
         /// <remarks>This is an array of LD IDs.</remarks>
         public string[] ResponsibleForecastZones { get; set; }
 
         /// <summary>
-        /// Gets/sets the fire zones the office is responsible for.
+        /// Gets or sets the fire zones the office is responsible for.
         /// </summary>
         /// <remarks>This is an array of LD IDs</remarks>
         public string[] ResponsibleFireZones { get; set; }
 
         /// <summary>
-        /// Gets/sets the approved observation stations assigned to the office.
+        /// Gets or sets the approved observation stations assigned to the office.
         /// </summary>
         /// <remarks>This is an array of LD IDs.</remarks>
         public string[] ApprovedObservationStations { get; set; }

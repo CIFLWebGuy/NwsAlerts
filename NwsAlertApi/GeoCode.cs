@@ -12,12 +12,12 @@ namespace NwsAlertApi
     public class GeoCode
     {
         /// <summary>
-        /// Gets/sets the list of SAME codes
+        /// Gets or sets the list of SAME codes
         /// </summary>
         public string[] SAME { get; set; }
 
         /// <summary>
-        /// Gets/sets the list of UGC codes
+        /// Gets or sets the list of UGC codes
         /// </summary>
         public string[] UGC { get; set; }
     }

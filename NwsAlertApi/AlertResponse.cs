@@ -13,24 +13,24 @@ namespace NwsAlertApi
     public class AlertResponse
     {
         /// <summary>
-        /// Gets/sets the api context.
+        /// Gets or sets the api context.
         /// </summary>
         [JsonPropertyName("@context")]
         public LdContext context { get; set; }
 
         /// <summary>
-        /// Gets/sets the alert data.
+        /// Gets or sets the alert data.
         /// </summary>
         [JsonPropertyName("@graph")]
         public List<Alert> Alerts { get; set; }
 
         /// <summary>
-        /// Gets/sets the response title.
+        /// Gets or sets the response title.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets/sets when the data was updated.
+        /// Gets or sets when the data was updated.
         /// </summary>
         public DateTime Updated { get; set; }
     }

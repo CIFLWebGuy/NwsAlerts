@@ -12,22 +12,22 @@ namespace NwsAlerts
     internal class AlertEvent
     {
         /// <summary>
-        /// Gets/sets the name of the event
+        /// Gets or sets the name of the event
         /// </summary>
         public string Name { get; set; }
         
         /// <summary>
-        /// Gets/sets the ID of the group.
+        /// Gets or sets the ID of the group.
         /// </summary>
         public int GroupID { get; set; }
 
         /// <summary>
-        /// Gets/sets the location the alert is displayed.
+        /// Gets or sets the location the alert is displayed.
         /// </summary>
         public DisplayLocation DisplayLocation { get; set; }
 
         /// <summary>
-        /// Gets/sets the image key used in the list.
+        /// Gets or sets the image key used in the list.
         /// </summary>
         public string ImageKey { get; set; }
         

@@ -13,13 +13,13 @@ namespace NwsAlertApi
     public class ZoneResponse
     {
         /// <summary>
-        /// Gets/sets the API context.
+        /// Gets or sets the API context.
         /// </summary>
         [JsonPropertyName("@context")]
         public LdContext Context { get; set; }
 
         /// <summary>
-        /// Gets/sets the list of zones.
+        /// Gets or sets the list of zones.
         /// </summary>
         [JsonPropertyName("@graph")]
         public List<Zone> Zones { get; set; }

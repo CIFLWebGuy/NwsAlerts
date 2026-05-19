@@ -276,15 +276,24 @@ namespace NwsAlerts
                     alert.Level = AlertLevel.TornadoEmergency;
                     item.Text = "*** TORNADO EMERGENCY ***";
                     item.ImageKey = "Tornado Emergency";
+                    item.SubItems[0].ForeColor = Color.DarkRed;
 
                     if (isNew)
                         playSound = true;
                 }
-                else if (description.Contains("PARTICULARLY DANGEROUS SITUATION") || instruction.Contains("PARTICULARLY DANGEROUS SITUATION"))
+                else if (description.Contains("DANGEROUS SITUATION") || instruction.Contains("DANGEROUS SITUATION"))
                 {
                     alert.Level = AlertLevel.PDS;
-                    item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
-                    item.SubItems[0].ForeColor = Color.DarkRed;
+                    item.SubItems[0].ForeColor = Color.Red;
+                    
+                    if (description.Contains("EXTREMELY DANGEROUS SITUATION") || instruction.Contains("EXTREMELY DANGEROUS SITUATION"))
+                    {
+                        item.Text = $"*** EDS {alert.Event.ToUpper()} ***";
+                    }
+                    else
+                    {
+                        item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
+                    }
 
                     if (isNew)
                         playSound = true;
@@ -306,6 +315,14 @@ namespace NwsAlerts
                         case "SEVERE THUNDERSTORM WARNING":
                             item.ImageKey = "Thunderstorm Warning PDS";
                             break;
+                    }
+                }
+
+                if(alert.Parameters.ContainsKey("thunderstormDamageThreat"))
+                {
+                    if (alert.Parameters["thunderstormDamageThreat"][0].ToUpper() == "DESTRUCTIVE")
+                    {
+                        item.Text += " *** DESTRUCTIVE ***";
                     }
                 }
 

@@ -13,7 +13,7 @@ namespace NwsAlertApi
     internal class NwsEventTypes
     {   
         /// <summary>
-        /// Gets/sets the API context
+        /// Gets or sets the API context
         /// </summary>
         /// <remarks>
         /// This is not used and will be empty.
@@ -22,7 +22,7 @@ namespace NwsAlertApi
         public string[] Context { get; set; }
 
         /// <summary>
-        /// Gets/sets the event type list.
+        /// Gets or sets the event type list.
         /// </summary>
         public string[] EventTypes { get; set; }
     }

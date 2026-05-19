@@ -13,24 +13,24 @@ namespace NwsAlertApi
     public class AlertReference
     {
         /// <summary>
-        /// Gets/sets the LD ID for the alert.
+        /// Gets or sets the LD ID for the alert.
         /// </summary>
         [JsonPropertyName("@id")]
         public string LDID { get; set; }
 
         /// <summary>
-        /// Gets/sets the ID of the alert.
+        /// Gets or sets the ID of the alert.
         /// </summary>
         [JsonPropertyName("identifer")]
         public string ID { get; set; }
 
         /// <summary>
-        /// Gets/sets the emali of the sender.
+        /// Gets or sets the emali of the sender.
         /// </summary>
         public string Sender { get; set; }
 
         /// <summary>
-        /// Gets/sets when the alert was sent.
+        /// Gets or sets when the alert was sent.
         /// </summary>
         public DateTime Sent { get; set; }
     }

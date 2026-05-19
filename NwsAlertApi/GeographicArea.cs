@@ -22,7 +22,7 @@ namespace NwsAlertApi
         private bool clearList;
 
         /// <summary>
-        /// Gets/sets the region type.
+        /// Gets or sets the region type.
         /// </summary>
         public RegionType RegionType
         {
@@ -41,7 +41,7 @@ namespace NwsAlertApi
         }
 
         /// <summary>
-        /// Gets/sets the geographic point to use.
+        /// Gets or sets the geographic point to use.
         /// </summary>
         public Point? Point
         {
@@ -60,7 +60,7 @@ namespace NwsAlertApi
         }
 
         /// <summary>
-        /// Gets/sets the marine region.
+        /// Gets or sets the marine region.
         /// </summary>
         public Regions Region
         {

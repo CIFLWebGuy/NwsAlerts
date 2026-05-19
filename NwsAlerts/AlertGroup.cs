@@ -12,22 +12,22 @@ namespace NwsAlerts
     internal class AlertGroup
     {
         /// <summary>
-        /// Gets/sets the ID of the group.
+        /// Gets or sets the ID of the group.
         /// </summary>
         public int ID { get; set; }
 
         /// <summary>
-        /// Gets/sets the name of the group.
+        /// Gets or sets the name of the group.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets/sets the CSS class of the group.
+        /// Gets or sets the CSS class of the group.
         /// </summary>
         public string CssClass { get; set; }
 
         /// <summary>
-        /// Gets/sets a flag that determines if the event type is displayed in the output list.
+        /// Gets or sets a flag that determines if the event type is displayed in the output list.
         /// </summary>
         public bool ShowEvent { get; set; }
     }

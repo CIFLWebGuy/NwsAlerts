@@ -13,7 +13,7 @@ namespace NwsAlerts.SettingsPages
     internal partial class ApiSettingsPage : UserControl
     {
         /// <summary>
-        /// Gets/sets the refresh interval.
+        /// Gets or sets the refresh interval.
         /// </summary>
         public int RefreshInterval
         {
@@ -28,7 +28,7 @@ namespace NwsAlerts.SettingsPages
         }
 
         /// <summary>
-        /// Gets/sets the API endpoint URL
+        /// Gets or sets the API endpoint URL
         /// </summary>
         public string Endpoint
         {
@@ -43,7 +43,7 @@ namespace NwsAlerts.SettingsPages
         }
 
         /// <summary>
-        /// Gets/sets the user's email.
+        /// Gets or sets the user's email.
         /// </summary>
         public string Email
         {

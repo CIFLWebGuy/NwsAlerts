@@ -14,7 +14,7 @@ namespace NwsAlerts
     public partial class SplashForm : Form
     {
         /// <summary>
-        /// Gets/sets the status text
+        /// Gets or sets the status text
         /// </summary>
         public string StatusText
         {

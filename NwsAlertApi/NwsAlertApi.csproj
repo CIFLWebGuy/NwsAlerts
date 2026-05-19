@@ -88,6 +88,7 @@
     <Compile Include="ApiError.cs" />
     <Compile Include="ApiException.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="EventCode.cs" />
     <Compile Include="GeoCode.cs" />
     <Compile Include="GeographicArea.cs" />
     <Compile Include="NwsEventTypes.cs" />

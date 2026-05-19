@@ -13,13 +13,13 @@ namespace NwsAlertApi
     public class ObservationStation
     {
         /// <summary>
-        /// Gets/sets the Index of the station.
+        /// Gets or sets the Index of the station.
         /// </summary>
         [JsonPropertyOrder(0)]
         public int Index { get; set; }
 
         /// <summary>
-        /// Gets/sets the URL of the station.
+        /// Gets or sets the URL of the station.
         /// </summary>
         [JsonPropertyOrder(1)]
         public string Url { get; set; }

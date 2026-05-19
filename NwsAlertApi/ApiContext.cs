@@ -13,17 +13,17 @@ namespace NwsAlertApi
     public class LdContext
     {
         /// <summary>
-        /// Gets/sets the version number
+        /// Gets or sets the version number
         /// </summary>
         public string Version { get; set; }
 
         /// <summary>
-        /// Gets/sets the WX ID
+        /// Gets or sets the WX ID
         /// </summary>
         public string WX { get; set; }
         
         /// <summary>
-        /// Gets/sets the vocab URI
+        /// Gets or sets the vocab URI
         /// </summary>
         [JsonPropertyName("@vocab") ]
         public string Vocab { get; set; }
