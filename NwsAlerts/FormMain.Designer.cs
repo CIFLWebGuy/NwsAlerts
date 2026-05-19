@@ -67,9 +67,6 @@ namespace NwsAlerts
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridViewEvents = new System.Windows.Forms.DataGridView();
-            this.EventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Group = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.LocationName = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.richTextBoxAlert = new System.Windows.Forms.RichTextBox();
             this.linkLabelExportWarning = new System.Windows.Forms.LinkLabel();
@@ -80,6 +77,14 @@ namespace NwsAlerts
             this.imageListTiles = new System.Windows.Forms.ImageList(this.components);
             this.imageListSeverity = new System.Windows.Forms.ImageList(this.components);
             this.treeViewZones = new Windows.Controls.TreeView();
+            this.statusLabelLoadOffices = new System.Windows.Forms.ToolStripStatusLabel();
+            this.EventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Group = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.LocationName = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxHeadline = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.linkLabelCopyHeadline = new System.Windows.Forms.LinkLabel();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEvents)).BeginInit();
@@ -94,13 +99,14 @@ namespace NwsAlerts
             this.statusLabelActive,
             this.statusLabelAlerts,
             this.statusLabelRetrieve,
-            this.statusLabelError});
-            this.statusStrip.Location = new System.Drawing.Point(0, 778);
+            this.statusLabelError,
+            this.statusLabelLoadOffices});
+            this.statusStrip.Location = new System.Drawing.Point(0, 792);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1038, 24);
+            this.statusStrip.Size = new System.Drawing.Size(1550, 24);
             this.statusStrip.SizingGrip = false;
-            this.statusStrip.TabIndex = 8;
+            this.statusStrip.TabIndex = 18;
             this.statusStrip.Text = "statusStrip1";
             // 
             // statusLabelUpdate
@@ -171,7 +177,7 @@ namespace NwsAlerts
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip.Size = new System.Drawing.Size(1038, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1550, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -324,10 +330,10 @@ namespace NwsAlerts
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 42);
+            this.label1.Location = new System.Drawing.Point(1082, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 15);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 10;
             this.label1.Text = "Message type:";
             // 
             // checkedListBoxMessageType
@@ -338,28 +344,28 @@ namespace NwsAlerts
             "Alert",
             "Update",
             "Cancel"});
-            this.checkedListBoxMessageType.Location = new System.Drawing.Point(12, 60);
+            this.checkedListBoxMessageType.Location = new System.Drawing.Point(1082, 50);
             this.checkedListBoxMessageType.Name = "checkedListBoxMessageType";
             this.checkedListBoxMessageType.Size = new System.Drawing.Size(151, 58);
-            this.checkedListBoxMessageType.TabIndex = 2;
+            this.checkedListBoxMessageType.TabIndex = 11;
             // 
             // checkedListBoxEvent
             // 
             this.checkedListBoxEvent.CheckOnClick = true;
             this.checkedListBoxEvent.FormattingEnabled = true;
-            this.checkedListBoxEvent.Location = new System.Drawing.Point(181, 60);
+            this.checkedListBoxEvent.Location = new System.Drawing.Point(1251, 50);
             this.checkedListBoxEvent.Name = "checkedListBoxEvent";
             this.checkedListBoxEvent.Size = new System.Drawing.Size(287, 184);
-            this.checkedListBoxEvent.TabIndex = 4;
+            this.checkedListBoxEvent.TabIndex = 13;
             this.checkedListBoxEvent.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxEvent_ItemCheck);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(178, 42);
+            this.label2.Location = new System.Drawing.Point(1248, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 15);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 12;
             this.label2.Text = "Event:";
             // 
             // checkedListBoxSeverity
@@ -372,18 +378,18 @@ namespace NwsAlerts
             "Moderate",
             "Severe",
             "Extreme"});
-            this.checkedListBoxSeverity.Location = new System.Drawing.Point(12, 147);
+            this.checkedListBoxSeverity.Location = new System.Drawing.Point(1082, 137);
             this.checkedListBoxSeverity.Name = "checkedListBoxSeverity";
             this.checkedListBoxSeverity.Size = new System.Drawing.Size(151, 94);
-            this.checkedListBoxSeverity.TabIndex = 7;
+            this.checkedListBoxSeverity.TabIndex = 15;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 129);
+            this.label3.Location = new System.Drawing.Point(1082, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 15);
-            this.label3.TabIndex = 6;
+            this.label3.TabIndex = 14;
             this.label3.Text = "Severity:";
             // 
             // timerRefresh
@@ -393,10 +399,10 @@ namespace NwsAlerts
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(484, 42);
+            this.label4.Location = new System.Drawing.Point(1079, 266);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 15);
-            this.label4.TabIndex = 10;
+            this.label4.TabIndex = 16;
             this.label4.Text = "Active Events:";
             // 
             // dataGridViewEvents
@@ -409,63 +415,39 @@ namespace NwsAlerts
             this.Group,
             this.LocationName});
             this.dataGridViewEvents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridViewEvents.Location = new System.Drawing.Point(487, 42);
+            this.dataGridViewEvents.Location = new System.Drawing.Point(1082, 284);
             this.dataGridViewEvents.Name = "dataGridViewEvents";
             this.dataGridViewEvents.RowHeadersVisible = false;
-            this.dataGridViewEvents.Size = new System.Drawing.Size(539, 202);
-            this.dataGridViewEvents.TabIndex = 13;
+            this.dataGridViewEvents.Size = new System.Drawing.Size(456, 493);
+            this.dataGridViewEvents.TabIndex = 17;
             this.dataGridViewEvents.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellEndEdit);
-            // 
-            // EventName
-            // 
-            this.EventName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.EventName.HeaderText = "Event";
-            this.EventName.MinimumWidth = 290;
-            this.EventName.Name = "EventName";
-            this.EventName.ReadOnly = true;
-            this.EventName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.EventName.Width = 290;
-            // 
-            // Group
-            // 
-            this.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Group.HeaderText = "Group";
-            this.Group.MinimumWidth = 150;
-            this.Group.Name = "Group";
-            this.Group.Width = 150;
-            // 
-            // LocationName
-            // 
-            this.LocationName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.LocationName.HeaderText = "Location";
-            this.LocationName.Name = "LocationName";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(486, 266);
+            this.label6.Location = new System.Drawing.Point(503, 32);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 15);
-            this.label6.TabIndex = 17;
+            this.label6.TabIndex = 4;
             this.label6.Text = "Alert text:";
             // 
             // richTextBoxAlert
             // 
             this.richTextBoxAlert.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxAlert.Location = new System.Drawing.Point(487, 284);
+            this.richTextBoxAlert.Location = new System.Drawing.Point(504, 50);
             this.richTextBoxAlert.Name = "richTextBoxAlert";
             this.richTextBoxAlert.ReadOnly = true;
-            this.richTextBoxAlert.Size = new System.Drawing.Size(539, 481);
-            this.richTextBoxAlert.TabIndex = 18;
+            this.richTextBoxAlert.Size = new System.Drawing.Size(539, 624);
+            this.richTextBoxAlert.TabIndex = 6;
             this.richTextBoxAlert.Text = "";
             // 
             // linkLabelExportWarning
             // 
             this.linkLabelExportWarning.AutoSize = true;
-            this.linkLabelExportWarning.Location = new System.Drawing.Point(918, 266);
+            this.linkLabelExportWarning.Location = new System.Drawing.Point(935, 32);
             this.linkLabelExportWarning.Name = "linkLabelExportWarning";
             this.linkLabelExportWarning.Size = new System.Drawing.Size(108, 15);
-            this.linkLabelExportWarning.TabIndex = 22;
+            this.linkLabelExportWarning.TabIndex = 5;
             this.linkLabelExportWarning.TabStop = true;
             this.linkLabelExportWarning.Text = "Export warning text";
             this.linkLabelExportWarning.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelExportWarning_LinkClicked);
@@ -480,12 +462,12 @@ namespace NwsAlerts
             this.listViewAlerts.FullRowSelect = true;
             this.listViewAlerts.HideSelection = false;
             this.listViewAlerts.LargeImageList = this.imageListTiles;
-            this.listViewAlerts.Location = new System.Drawing.Point(12, 378);
+            this.listViewAlerts.Location = new System.Drawing.Point(12, 199);
             this.listViewAlerts.MultiSelect = false;
             this.listViewAlerts.Name = "listViewAlerts";
             this.listViewAlerts.ShowItemToolTips = true;
-            this.listViewAlerts.Size = new System.Drawing.Size(456, 387);
-            this.listViewAlerts.TabIndex = 23;
+            this.listViewAlerts.Size = new System.Drawing.Size(456, 578);
+            this.listViewAlerts.TabIndex = 3;
             this.listViewAlerts.TileSize = new System.Drawing.Size(440, 50);
             this.listViewAlerts.UseCompatibleStateImageBehavior = false;
             this.listViewAlerts.View = System.Windows.Forms.View.Tile;
@@ -561,19 +543,95 @@ namespace NwsAlerts
             // treeViewZones
             // 
             this.treeViewZones.CheckBoxes = true;
-            this.treeViewZones.Location = new System.Drawing.Point(12, 250);
+            this.treeViewZones.Location = new System.Drawing.Point(12, 50);
             this.treeViewZones.Name = "treeViewZones";
             this.treeViewZones.ShowLines = false;
-            this.treeViewZones.Size = new System.Drawing.Size(456, 122);
-            this.treeViewZones.TabIndex = 24;
+            this.treeViewZones.Size = new System.Drawing.Size(456, 143);
+            this.treeViewZones.TabIndex = 2;
             this.treeViewZones.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewZones_AfterCheck);
+            // 
+            // statusLabelLoadOffices
+            // 
+            this.statusLabelLoadOffices.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.statusLabelLoadOffices.Image = ((System.Drawing.Image)(resources.GetObject("statusLabelLoadOffices.Image")));
+            this.statusLabelLoadOffices.Name = "statusLabelLoadOffices";
+            this.statusLabelLoadOffices.Size = new System.Drawing.Size(169, 20);
+            this.statusLabelLoadOffices.Text = "Retrieving NWS office list...";
+            this.statusLabelLoadOffices.Visible = false;
+            // 
+            // EventName
+            // 
+            this.EventName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.EventName.HeaderText = "Event";
+            this.EventName.MinimumWidth = 150;
+            this.EventName.Name = "EventName";
+            this.EventName.ReadOnly = true;
+            this.EventName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Group
+            // 
+            this.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Group.HeaderText = "Group";
+            this.Group.MinimumWidth = 150;
+            this.Group.Name = "Group";
+            this.Group.Width = 150;
+            // 
+            // LocationName
+            // 
+            this.LocationName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.LocationName.HeaderText = "Location";
+            this.LocationName.MinimumWidth = 75;
+            this.LocationName.Name = "LocationName";
+            this.LocationName.Width = 75;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 32);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 15);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "NWS Offices:";
+            // 
+            // textBoxHeadline
+            // 
+            this.textBoxHeadline.Location = new System.Drawing.Point(504, 703);
+            this.textBoxHeadline.Multiline = true;
+            this.textBoxHeadline.Name = "textBoxHeadline";
+            this.textBoxHeadline.ReadOnly = true;
+            this.textBoxHeadline.Size = new System.Drawing.Size(539, 74);
+            this.textBoxHeadline.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(503, 685);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(125, 15);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Social media headline:";
+            // 
+            // linkLabelCopyHeadline
+            // 
+            this.linkLabelCopyHeadline.AutoSize = true;
+            this.linkLabelCopyHeadline.Location = new System.Drawing.Point(960, 685);
+            this.linkLabelCopyHeadline.Name = "linkLabelCopyHeadline";
+            this.linkLabelCopyHeadline.Size = new System.Drawing.Size(83, 15);
+            this.linkLabelCopyHeadline.TabIndex = 8;
+            this.linkLabelCopyHeadline.TabStop = true;
+            this.linkLabelCopyHeadline.Text = "Copy headline";
+            this.linkLabelCopyHeadline.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCopyHeadline_LinkClicked);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1038, 802);
+            this.ClientSize = new System.Drawing.Size(1550, 816);
+            this.Controls.Add(this.linkLabelCopyHeadline);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxHeadline);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.treeViewZones);
             this.Controls.Add(this.listViewAlerts);
             this.Controls.Add(this.linkLabelExportWarning);
@@ -651,13 +709,18 @@ namespace NwsAlerts
         private System.Windows.Forms.ColumnHeader columnHeaderCounties;
         private System.Windows.Forms.ImageList imageListSeverity;
         private System.Windows.Forms.ImageList imageListTiles;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Group;
-        private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
         private Windows.Controls.TreeView treeViewZones;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxOutlookDay;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelLoadOffices;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Group;
+        private System.Windows.Forms.DataGridViewComboBoxColumn LocationName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxHeadline;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.LinkLabel linkLabelCopyHeadline;
     }
 }
 

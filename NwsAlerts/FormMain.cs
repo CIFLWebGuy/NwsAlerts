@@ -554,6 +554,85 @@ namespace NwsAlerts
 
             return imageMap;
         }
+
+        private string GenerateSocialMediaHeadline(Alert alert)
+        {
+            StringBuilder output = new StringBuilder();
+            string[] counties = alert.AreaDesc.Split(';');
+            string symbol = "⚠";
+
+            if(alert.Level == AlertLevel.PDS || alert.Level == AlertLevel.TornadoEmergency)
+            {
+                symbol = "🚨";
+            }
+
+            output.Append(symbol);
+            output.Append(" ");
+            output.Append(alert.Event);
+            output.Append(" IN EFFECT FOR ");
+
+            for(int i = 0;  i < counties.Length; i++)
+            {
+                string[] parts = counties[i].Split(',');
+
+                if (counties.Length > 1)
+                {
+                    if (i == counties.Length - 1)
+                    {
+                        output.Append(" and ");
+                    }
+                    else if(i > 0 && counties.Length > 2)
+                    {
+                        output.Append(", ");
+                    }
+                }
+                
+                output.Append(parts[0].Trim());
+            }
+
+            if(counties.Length == 1)
+            {
+                output.Append(" COUNTY");
+            }
+            else
+            {
+                output.Append(" COUNTIES");
+            }
+
+            if(alert.Expires.HasValue)
+            {
+                output.Append(" UNTIL ");
+
+                if (alert.Expires.Value.Date == DateTime.Now.Date)
+                {
+                    output.Append(alert.Expires.Value.ToString("h:mm tt"));
+                }
+                else
+                {
+                    output.Append(alert.Expires.Value.ToString("h:mm tt dddd"));
+                }
+            }
+            else if (alert.Ends.HasValue)
+            {
+                output.Append(" UNTIL ");
+
+                if (alert.Ends.Value.Date == DateTime.Now.Date)
+                {
+                    output.Append(alert.Ends.Value.ToString("h:mm tt"));
+                }
+                else
+                {
+                    output.Append(alert.Ends.Value.ToString("h:mm tt dddd"));
+                }
+            }
+
+            output.Append(" ");
+            output.Append(symbol);
+
+            return output.ToString().ToUpper();
+        }
+
+
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -678,6 +757,9 @@ namespace NwsAlerts
 
         private void toolStripComboBoxState_SelectedIndexChanged(object sender, EventArgs e)
         {
+            statusLabelLoadOffices.Visible = true;
+            Refresh();
+
             treeViewZones.Nodes.Clear();
             treeViewZones.BeginUpdate();
 
@@ -714,6 +796,7 @@ namespace NwsAlerts
 
             treeViewZones.EndUpdate();
             resetCrawl = true;
+            statusLabelLoadOffices.Visible = false;
         }
 
         private void toolStripButtonConnect_CheckedChanged(object sender, EventArgs e)
@@ -869,6 +952,8 @@ namespace NwsAlerts
             if (listViewAlerts.SelectedItems.Count == 0)
             {
                 richTextBoxAlert.Text = "";
+                textBoxHeadline.Text = "";
+
                 return;
             }
 
@@ -877,6 +962,7 @@ namespace NwsAlerts
             if(alert != null)
             {
                 richTextBoxAlert.Text = alert.Headline + "\n\n" + alert.Description + alert.Instruction;
+                textBoxHeadline.Text = GenerateSocialMediaHeadline(alert);
             }
         }
 
@@ -905,6 +991,14 @@ namespace NwsAlerts
             DateTime day = DateTime.Now.AddDays(toolStripComboBoxOutlookDay.SelectedIndex);
 
             File.WriteAllText(Path.Combine(Properties.Settings.Default.OutputFolder, "Outlook Day.txt"), day.DayOfWeek.ToString());
+        }
+
+        private void linkLabelCopyHeadline_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (textBoxHeadline.Text == "")
+                return;
+
+            Clipboard.SetData(DataFormats.Text, textBoxHeadline.Text);
         }
     }
 }
