@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11822.322 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NwsAlerts", "NwsAlerts\NwsAlerts.csproj", "{B81BAAA3-9B08-4318-98DD-7FE0ABF21AE2}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlertCrawl", "AlertCrawl\AlertCrawl.csproj", "{A51655BA-D361-404F-9657-4ECE424285D1}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "NWSAlertApiDocumentation", "NWSAlertApiDocumentation\NWSAlertApiDocumentation.shfbproj", "{7166BD91-CA9C-48CF-8F00-CEF39A995496}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NWSAlertsSetup", "NWSAlertsSetup\NWSAlertsSetup.vdproj", "{1AA50C97-0B1F-3C39-63A5-0CB16AA5111C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,8 @@ Global
 		{7166BD91-CA9C-48CF-8F00-CEF39A995496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7166BD91-CA9C-48CF-8F00-CEF39A995496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7166BD91-CA9C-48CF-8F00-CEF39A995496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA50C97-0B1F-3C39-63A5-0CB16AA5111C}.Debug|Any CPU.ActiveCfg = Debug
+		{1AA50C97-0B1F-3C39-63A5-0CB16AA5111C}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
