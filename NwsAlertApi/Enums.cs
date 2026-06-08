@@ -130,6 +130,11 @@ namespace NwsAlertApi
         PDS,
 
         /// <summary>
+        /// Alert is tagged as a EDS
+        /// </summary>
+        EDS, 
+
+        /// <summary>
         /// Alert is a Tornado Emergency
         /// </summary>
         TornadoEmergency

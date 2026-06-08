@@ -283,15 +283,16 @@ namespace NwsAlerts
                 }
                 else if (description.Contains("DANGEROUS SITUATION") || instruction.Contains("DANGEROUS SITUATION"))
                 {
-                    alert.Level = AlertLevel.PDS;
                     item.SubItems[0].ForeColor = Color.Red;
                     
                     if (description.Contains("EXTREMELY DANGEROUS SITUATION") || instruction.Contains("EXTREMELY DANGEROUS SITUATION"))
                     {
+                        alert.Level = AlertLevel.EDS;
                         item.Text = $"*** EDS {alert.Event.ToUpper()} ***";
                     }
                     else
                     {
+                        alert.Level = AlertLevel.PDS;
                         item.Text = $"*** PDS {alert.Event.ToUpper()} ***";
                     }
 
@@ -379,6 +380,10 @@ namespace NwsAlerts
                             {
                                 body.AppendLine($"<p><h3>** PDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
                             }
+                            else if (alert.Level == AlertLevel.EDS)
+                            {
+                                body.AppendLine($"<p><h3>** EDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
                             else
                             {
                                 body.AppendLine($"<p><h3>{alert.Event}</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
@@ -393,6 +398,10 @@ namespace NwsAlerts
                             else if (alert.Level == AlertLevel.PDS)
                             {
                                 body.AppendLine($"<p><b>** PDS ALERT **</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                            }
+                            else if(alert.Level == AlertLevel.EDS)
+                            {
+                                body.AppendLine($"<p><b>** EDS ALERT **</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
                             }
                             else
                             {
@@ -560,18 +569,72 @@ namespace NwsAlerts
             StringBuilder output = new StringBuilder();
             string[] counties = alert.AreaDesc.Split(';');
             string symbol = "⚠";
+            string eventName = string.Empty;
+            bool isDestructive = false;
 
-            if(alert.Level == AlertLevel.PDS || alert.Level == AlertLevel.TornadoEmergency)
+            if (alert.Parameters.ContainsKey("thunderstormDamageThreat"))
             {
-                symbol = "🚨";
+                if (alert.Parameters["thunderstormDamageThreat"][0].ToUpper() == "DESTRUCTIVE")
+                {
+                    isDestructive = true;
+                }
+            }
+
+            switch (alert.Level)
+            {
+                case AlertLevel.EDS:
+                    symbol = "🚨";
+
+                    if (isDestructive)
+                    {
+                        eventName = $"EXTREMELY DANGEROUS AND DESTRUCTIVE {alert.Event}";
+                    }
+                    else
+                    {
+                        eventName = $"EXTREMELY DANGEROUS {alert.Event}";
+                    }
+
+                    break;
+
+                case AlertLevel.PDS:
+                    symbol = "🚨";
+
+                    if (isDestructive)
+                    {
+                        eventName = $"PARTICULARLY DANGEROUS AND DESTRUCTIVE {alert.Event}";
+                    }
+                    else
+                    {
+                        eventName = $"PARTICULARLY DANGEROUS {alert.Event}";
+                    }
+
+                    break;
+
+                case AlertLevel.TornadoEmergency:
+                    symbol = "🚨🚨";
+                    eventName = $"TORNADO EMERGENCY";
+                    break;
+
+                default:
+                    if (isDestructive)
+                    {
+                        symbol = "🚨";
+                        eventName = $" **DESTRUCTIVE** {alert.Event}";
+                    }
+                    else
+                    {
+                        eventName = alert.Event;
+                    }
+
+                    break;
             }
 
             output.Append(symbol);
             output.Append(" ");
-            output.Append(alert.Event);
+            output.Append(eventName);
             output.Append(" IN EFFECT FOR ");
 
-            for(int i = 0;  i < counties.Length; i++)
+            for (int i = 0; i < counties.Length; i++)
             {
                 string[] parts = counties[i].Split(',');
 
@@ -581,16 +644,16 @@ namespace NwsAlerts
                     {
                         output.Append(" and ");
                     }
-                    else if(i > 0 && counties.Length > 2)
+                    else if (i > 0 && counties.Length > 2)
                     {
                         output.Append(", ");
                     }
                 }
-                
+
                 output.Append(parts[0].Trim());
             }
 
-            if(counties.Length == 1)
+            if (counties.Length == 1)
             {
                 output.Append(" COUNTY");
             }
@@ -599,7 +662,7 @@ namespace NwsAlerts
                 output.Append(" COUNTIES");
             }
 
-            if(alert.Expires.HasValue)
+            if (alert.Expires.HasValue)
             {
                 output.Append(" UNTIL ");
 

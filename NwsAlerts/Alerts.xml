@@ -8,6 +8,7 @@
     <group name="Flood Advisories" id="3" class="flood" showEvent="true" />
     <group name="Winter Weather" id="4" class="winter" showEvent="true" />
     <group name="Hazard" id="5" class="hazard" showEvent="true" />
+	<group name="Watches" id="6" class="watch" showEvent="true" />
   </groups>
   <events>
     <event name="Tornado Warning" groupID="1" location="0" icon="Tornado Warning" />
