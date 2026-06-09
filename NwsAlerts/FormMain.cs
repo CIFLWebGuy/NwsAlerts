@@ -238,7 +238,7 @@ namespace NwsAlerts
             ListViewItem selectedItem = null;
             bool playSound = false;
             bool isNew;
-
+            
             if (listViewAlerts.SelectedItems.Count != 0)
                 selectedItem = listViewAlerts.SelectedItems[0];
 
@@ -247,22 +247,14 @@ namespace NwsAlerts
             foreach (Alert alert in activeAlerts.OrderByDescending(a => a.Expires))
             {
                 AlertEvent alertEvent = selectedEvents.Where(e => e.Name == alert.Event).FirstOrDefault();
+                DateTime expires = GetAlertExipration(alert);
 
                 isNew = !alertIDCache.Contains(alert.ID);
 
                 ListViewItem item = new ListViewItem();
                 item.Text = alert.Event;
                 item.SubItems.Add(alert.AreaDesc);
-
-                if (alert.Ends != null)
-                {
-                    item.SubItems.Add($"until {alert.Ends}");
-                }
-                else
-                {
-                    item.SubItems.Add($" until {alert.Expires}");
-                }
-
+                item.SubItems.Add($" until {expires}");
                 item.ImageKey = alertEvent.ImageKey;
                 item.Group = listViewAlerts.Groups[alertEvent.GroupID.ToString()];
                 item.Tag = alert.ID;
@@ -360,6 +352,8 @@ namespace NwsAlerts
 
                 foreach (var alert in alerts)
                 {
+                    DateTime endDate = GetAlertExipration(alert);
+
                     if (alertEvent.DisplayLocation == DisplayLocation.Main)
                     {
                         AlertGroup group = groupList.Where(g => g.ID == alertEvent.GroupID).Single();
@@ -374,38 +368,38 @@ namespace NwsAlerts
                         {
                             if (alert.Level == AlertLevel.TornadoEmergency)
                             {
-                                body.AppendLine($"<p><h3>*** TORNADO EMERGENCY ***</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><h3>*** TORNADO EMERGENCY ***</h3>{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                             else if (alert.Level == AlertLevel.PDS)
                             {
-                                body.AppendLine($"<p><h3>** PDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><h3>** PDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                             else if (alert.Level == AlertLevel.EDS)
                             {
-                                body.AppendLine($"<p><h3>** EDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><h3>** EDS {alert.Event} **</h3>{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                             else
                             {
-                                body.AppendLine($"<p><h3>{alert.Event}</h3>{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><h3>{alert.Event}</h3>{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                         }
                         else
                         {
                             if (alert.Level == AlertLevel.TornadoEmergency)
                             {
-                                body.AppendLine($"<p><b>*** TORNADO EMERGENCY ***</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><b>*** TORNADO EMERGENCY ***</b><br />{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                             else if (alert.Level == AlertLevel.PDS)
                             {
-                                body.AppendLine($"<p><b>** PDS ALERT **</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><b>** PDS ALERT **</b><br />{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                             else if(alert.Level == AlertLevel.EDS)
                             {
-                                body.AppendLine($"<p><b>** EDS ALERT **</b><br />{alert.AreaDesc}<br />until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p><b>** EDS ALERT **</b><br />{alert.AreaDesc}<br />until {endDate:g}</p>");
                             }
                             else
                             {
-                                body.AppendLine($"<p>{alert.AreaDesc} until {alert.Expires:g}</p>");
+                                body.AppendLine($"<p>{alert.AreaDesc} until {endDate:g}</p>");
                             }
                         }
 
@@ -662,31 +656,17 @@ namespace NwsAlerts
                 output.Append(" COUNTIES");
             }
 
-            if (alert.Expires.HasValue)
-            {
-                output.Append(" UNTIL ");
+            DateTime expires = GetAlertExipration(alert);
 
-                if (alert.Expires.Value.Date == DateTime.Now.Date)
-                {
-                    output.Append(alert.Expires.Value.ToString("h:mm tt"));
-                }
-                else
-                {
-                    output.Append(alert.Expires.Value.ToString("h:mm tt dddd"));
-                }
+            output.Append($" UNTIL ");
+
+            if (expires == DateTime.Now.Date)
+            {
+                output.Append(expires.ToString("h:mm tt"));
             }
-            else if (alert.Ends.HasValue)
+            else
             {
-                output.Append(" UNTIL ");
-
-                if (alert.Ends.Value.Date == DateTime.Now.Date)
-                {
-                    output.Append(alert.Ends.Value.ToString("h:mm tt"));
-                }
-                else
-                {
-                    output.Append(alert.Ends.Value.ToString("h:mm tt dddd"));
-                }
+                output.Append(expires.ToString("h:mm tt dddd"));
             }
 
             output.Append(" ");
@@ -695,6 +675,20 @@ namespace NwsAlerts
             return output.ToString().ToUpper();
         }
 
+        private DateTime GetAlertExipration(Alert alert)
+        {
+            DateTime? expire = alert.Ends.HasValue ? alert.Ends : DateTime.Now;
+            
+            if(alert.Expires.HasValue)
+            {
+                if(alert.Expires > expire)
+                {
+                    expire = alert.Expires;
+                }
+            }
+
+            return expire.Value;
+        }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -967,7 +961,7 @@ namespace NwsAlerts
             if (richTextBoxAlert.Text == "")
                 return;
 
-            if(listViewAlerts.SelectedItems.Count == 0)
+            if (listViewAlerts.SelectedItems.Count == 0)
                 return;
 
             Alert alert = activeAlerts.Where(a => a.ID == listViewAlerts.SelectedItems[0].Tag.ToString()).Single();
@@ -975,31 +969,25 @@ namespace NwsAlerts
             try
             {
                 StringBuilder expires = new StringBuilder();
-                
-                if(alert.Expires.HasValue)
+
+                DateTime untilTime = GetAlertExipration(alert);
+
+                expires.Append("Until ");
+
+                if (untilTime == DateTime.Now.Date)
                 {
-                    DateTime untilTime = alert.Expires.Value;
-
-                    if (alert.Ends.HasValue && alert.Ends.Value > untilTime)
-                        untilTime = alert.Ends.Value;
-
-                    expires.Append("Until ");
-
-                    if(untilTime == DateTime.Now.Date)
-                    {
-                        expires.Append(untilTime.ToString("t"));
-                    }
-                    else if (untilTime.Subtract(DateTime.Today).Days < 7)
-                    {
-                        expires.Append(untilTime.ToString("hh:mm tt dddd"));
-                    }
-                    else
-                    {
-                        expires.Append(untilTime.ToString("g"));
-                    }
-
-                    File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Expires.txt"), expires.ToString());
+                    expires.Append(untilTime.ToString("t"));
                 }
+                else if (untilTime.Subtract(DateTime.Today).Days < 7)
+                {
+                    expires.Append(untilTime.ToString("hh:mm tt dddd"));
+                }
+                else
+                {
+                    expires.Append(untilTime.ToString("g"));
+                }
+
+                File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Expires.txt"), expires.ToString());
 
                 File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "Warning.txt"), richTextBoxAlert.Text);
                 File.WriteAllText(Path.Combine(Properties.Settings.Default.WarningOutputPath, "AlertTitle.txt"), alert.Event);
